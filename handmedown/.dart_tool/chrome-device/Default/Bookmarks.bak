@@ -1,0 +1,205 @@
+{
+   "checksum": "9e96f0521e857dfcf154b5a0ba5a86c6",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13238706275406564",
+            "date_last_used": "13420332305948834",
+            "guid": "247a5035-4a44-4ff8-aeb5-3197e7324310",
+            "id": "10",
+            "name": "Showdown",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://play.pokemonshowdown.com/",
+            "visit_count": 2
+         }, {
+            "date_added": "13242745599117276",
+            "date_last_used": "0",
+            "guid": "92a7f788-0200-4165-9685-ca129ba4154b",
+            "id": "11",
+            "name": "Grades and Attendance",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ps.mattawanschools.org/guardian/home.html",
+            "visit_count": 0
+         }, {
+            "date_added": "13246759068547470",
+            "date_last_used": "0",
+            "guid": "3cd678b2-5a19-4152-86fa-4bec15ee6da3",
+            "id": "12",
+            "name": ":: procatinator ::",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "http://procatinator.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13248921178048245",
+            "date_last_used": "0",
+            "guid": "7afa7fce-a013-42f8-9dc7-f448403e8a1a",
+            "id": "13",
+            "name": "Island Scan",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.serebii.net/ultrasunultramoon/islandscan.shtml",
+            "visit_count": 0
+         }, {
+            "date_added": "13251168666263861",
+            "date_last_used": "13379497596063464",
+            "guid": "c2ef58b7-fe0e-4eb8-b294-f3e6afd1fce0",
+            "id": "14",
+            "name": "Ace Attorney Objection Maker",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://objection.lol/",
+            "visit_count": 1
+         }, {
+            "date_added": "13235236619905449",
+            "date_last_used": "13384636704090694",
+            "guid": "e984a531-c92b-4a4d-b5e4-32bfd32f65a4",
+            "id": "15",
+            "name": "Showdown!",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://play.pokemonshowdown.com/",
+            "visit_count": 1
+         }, {
+            "children": [ {
+               "date_added": "13208283852897035",
+               "date_last_used": "0",
+               "guid": "98fd0803-bfe6-4a65-8472-3f3848369d85",
+               "id": "17",
+               "name": "Alienware",
+               "show_icon": false,
+               "source": "import_fre",
+               "type": "url",
+               "url": "http://www.alienwarearena.com/welcome-us",
+               "visit_count": 0
+            }, {
+               "date_added": "13208283852905056",
+               "date_last_used": "0",
+               "guid": "09ea6a63-6bbd-442c-abcc-13655a427bcf",
+               "id": "18",
+               "name": "Alienware Support",
+               "show_icon": false,
+               "source": "import_fre",
+               "type": "url",
+               "url": "http://www.dell.com/support/home",
+               "visit_count": 0
+            } ],
+            "date_added": "13436140589668468",
+            "date_last_used": "0",
+            "date_modified": "13436140598023434",
+            "guid": "f01ac741-f93f-4925-97b4-8198d5be5779",
+            "id": "16",
+            "name": "Alienware",
+            "source": "unknown",
+            "type": "folder"
+         }, {
+            "date_added": "13330416460564300",
+            "date_last_used": "0",
+            "guid": "1c5e11bb-21d3-453d-8ab3-c978ab0e3c97",
+            "id": "19",
+            "name": "Online Audio Converter | Convert your audio files to MP3, WAV, FLAC, OGG and more",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://onlineaudioconverter.com/#",
+            "visit_count": 0
+         }, {
+            "date_added": "13340589087773774",
+            "date_last_used": "13425419393447289",
+            "guid": "2b61fce9-a992-438d-963a-10e9b244b1e6",
+            "id": "20",
+            "name": "Scribbr - Your path to academic success",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.scribbr.com/",
+            "visit_count": 1
+         }, {
+            "date_added": "13363841319996040",
+            "date_last_used": "13367443110487129",
+            "guid": "66089969-1a2a-43df-8f3c-20b83425902f",
+            "id": "21",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "K Sign in",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://fs.kzoo.edu/adfs/ls/?wfresh=0&wauth=http%3a%2f%2fschemas.microsoft.com%2fws%2f2008%2f06%2fidentity%2fauthenticationmethod%2fpassword&client-request-id=84e237d7-f8c7-4272-9db4-1d77cc35cdba&wa=wsignin1.0&wtrealm=urn%3afederation%3aMicrosoftOnline&wctx=LoginOptions%3D3%26estsredirect%3d2%26estsrequest%3drQQIARAAlZTPi9xkHMZ3dtt1W1otBbEXoYoncXfzJpOdplDozk6SmezmzeZN3jc_VCTJm53M5GczmclMTqV48NiLHoReRBF6UvEgnsSLUix4q4gg9CDSg4gXexKzSP8An8PDC-8vePh8n9c3wA64_hrzn4LtU__PgmerZ7p5u1NePn_pUe_xu989Lfv3vny5_oF_-PX9Doiqqphd3931giCfZ9WOF1STRUgnZRhUebnaqScZzeuZ18zLcCfI092vOp0fO53fO53766-AHhC4vd6e0NtpVmOjxjxltisxcoHDBJKW6j-vv6Dtz6uIPbW8nDThk_WzST6eZH-tnzvJy_SdIp9VtzfWPtz4fEsrwmxED_Isa__eOb0RZtUk8KpJnh2XeRGW1SSc3djX91vhUxsRmcwdi2cMyyj3scoRvEyIKXGapQPMUgVaqIEWGFpYKA1bGmAZTohMRy4pFnqsiB7mNThUahLDQwdD1rCUWsVVQ1hiaBbRPEmQHTJaIhPhIxytAi5eWuly4E0JDDjFw4TUTiZZVgrzQKwabCYL3cKMH4_rI3tcIalvmynNdFLshYNk5GZFQWOy8KfuCgGyCKeUgWy0Z7MFaxBohaKUWaZr-UNyGIpkYoK-je3I8Fh4y5Tcka4XkW8rJzSVZtQizXhfklxpzGFAdGugLDyxUKEc6ZhRKhNEh2bsgvAAaHbjnmBbYpxYURzcZsMkrsrgSsduTgdkDom4pBay1VRnfBlxRIwKxEouSiIGirMuStEtRIraHCSlwUpmkC5tyggZJX3GS5PSylDdpt9XgWIEVqQZzIjRbHeGDNBHmGdQHOFw7NZBKlTB0NjfN5WUJHBucn0VYuJ57LXK42C7H-FArIEOCl63lq4TkwINFAJTGJn2iDFZULb5lJalFEbK4wDQVE_Risp8ErD6EpIiIpKzRJJ0jEV1BTkF62m3IRkUteGo64Fk5rJQp1lUG_FyRAi95WJB9jn3iGKi4UTBFPQLkwka31JWqgzIgcGvXAsVQUqmVKQ5HaI6aPLFEStNHVYAfqa3DELGs93ElZP2LGR8TuGPMlr4KVpQDrYgk5Vr8FOfZRbBUFn4rAuCAz4KuH73mOuvfFZIqb0vqIg_DlqmDQsNfJafn751FMOFK-M5Tkns2UricIgEadaOgMLRVKyOMC3cQV_3Y2YJh_0CDeEUMpVpkv7KTPmCSIVtxDTWSDEyUmXaMjXHUykismS37B-YTZ_ArH-icu4BTnQQ4JYTQvaIlUSeCRs9ISsySIhjRyKRBRm2DBFGSLGpdDEOGiLDZYiL3LcS1jgAI8okFbaEEwPzhh4LmidKjD-QRpoBmDCBKyQivc2hdmPkYVnykKWAIFO6utXOJrOceQmKHAxmIVEalMaNyrrHDud0YQwzFENNw9FAbZRMHX-x8VrIgq7f5a9tB11-b7vL-91tYQ94271rPMvx_Ano9bwHG8-35ZFN6NWizE8mSfh440rbQV62U4ReOcsztnszbvJ8J6TzH890npy5wGxc39o6f2ntytrVtadnOh-dbbvzztv_vPnqr5_CD9YP773094trD87uOrYorqKj1WBVgOVo5iAy1oV8EtYHoVwc-oVqYxYPu_rAmN3oXQd3Nzt3Nzf_3Oy891zn63P_v3m_P9-5c-Hi1trlc-dE_a2f3n3_l-E3F9eePv_o49--ffjZJ38Mn7zwBgNkStmmqRemourY1FkoeMvjQzAwJVVxIq5XTiczTuc15sZnl9b-BQ2&cbcxt=&username=logan.pearson24%40kzoo.edu&mkt=&lc=",
+            "visit_count": 0
+         } ],
+         "date_added": "13436140583754361",
+         "date_last_used": "0",
+         "date_modified": "13363841319996040",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13436140583754361",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13436140583754361",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [ {
+            "children": [  ],
+            "date_added": "13418172601224332",
+            "date_last_used": "0",
+            "date_modified": "13418172601224332",
+            "guid": "7e135a57-050b-47e5-bff3-eace05aefce7",
+            "id": "22",
+            "name": "Fun",
+            "source": "unknown",
+            "type": "folder"
+         }, {
+            "children": [  ],
+            "date_added": "13418172601218132",
+            "date_last_used": "0",
+            "date_modified": "13418172601218132",
+            "guid": "f2580633-18ad-4505-adbf-df6c57fa3de5",
+            "id": "23",
+            "name": "School",
+            "source": "unknown",
+            "type": "folder"
+         } ],
+         "date_added": "13436140583754361",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Workspaces",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCHhFqSehAQAAEgAqGDYzL0tlWVZCckZPZDlLS1QwV1MxN0E9PUgDoAYHEqwBCBcSpwEKHDdmenJ0cEliM05vMGVUd0VVVi94Tnl4M0d6OD0SJGYyNTgwNjMzLTE4YWQtNDUwNS1hZGJmLWRmNmM1N2ZhM2RlNRgAIAAoADC218vFzzM4sOPLxc8zQLDjy8XPM0ocdFdzaDg3dEsybjZWamhrUlFsYk1JeG5xeDJvPVoeIhwycVg1azFxWHV0eVhWRjR5R0tYSVVkamduaWc9ZQAAAADCPgJgABKMAQgFEocBChx3UkJyWkwrNlBBOWF2S2dqTlA3SlhETGNmdnM9EiQ1MDNiYWFiYi0xYWY0LTU5MWQtODJkYy0wMDcyZGExNDhjNzkYACAAKAAwmcW91qQzONTFvdakM0DUxb3WpDNKHG5teDY1c1FEdnhJOFRnRWV2K0ErbnR0b1NuND1lAAAAAMI+AmAAEqwBCBYSpwEKHFhzS2hsYlVnSVhGbFJuNzhVL1ROenFOemhmOD0SJDdlMTM1YTU3LTA1MGItNDdlNS1iZmYzLWVhY2UwNWFlZmNlNxgAIAAoADC318vFzzM42ePLxc8zQNnjy8XPM0ocNkRlVmJidm03KzNNc0d0SVZhcGtxMUxndFNnPVoeIhwxSzBMWStCOXRhUStRd1RuTkdvZE1uS09pcE09ZQAAAADCPgJgABKtAQgUEqgBChwwK0UzMSt3R1haMlpySVlzM3lRRCs0MmZrZWM9EiQyYjYxZmNlOS1hOTkyLTQzOGQtOTYzYS0xMGU5YjI0NGIxZTYYACAAKAAwl5GRxeozOMzt8cKuMUDM7fHCrjFKHGl2c2o4d2pLb1RmQnIzVmMvSmFyVkFoazR2RT1aHyId/U9vWjlNTmtQaVRUMUVOK3h0QzZhV2drd3AwYz1l6mQ5t8I+AmAFEq0BCBUSqAEKHEV1QVBFMm9aL1Ruemp4WFg4b1dEdVNkRGhzND0SJDY2MDg5OTY5LTFhMmEtNDNkZi04ZjNjLTIwYjgzNDI1OTAyZhgAIAAoADD0+ub+iTM4hMq1koUyQITKtZKFMkocdzBQaFNaNmFyelo5YWZjS2kzUjlFc2liTk9FPVofIh3+NndkdEE0Y3JzOTcreWJSOGEvdElqcWlDbW5NPWX6nFsxwj4CYAUSrQEIExKoAQoceXdqZGxoZGVybXRyY2I4ZTVnYWNMVlVJQTJrPRIkMWM1ZTExYmItMjFkMy00NTNkLThhYjMtYzk3OGFiMGUzYzk3GAAgACgAMOCLmtCIMTiZjJrQiDFAmYya0IgxShxqd1o5ZmpwRDFpZ25FbU56VlBwTEpzb1gza289Wh8iHfs0eU9zenhRQUJqQW45L2JPVlRtRm9ERE1Yc0E9ZXjOD/vCPgJgBRKMAQgCEocBChxZY1NUb252RVNQd3FDczRMMmNyVmh2NjhMOTg9EiRkYTdkZmYyZi01OGZmLTVlMjgtYTM5Yi1mNDY4YzQ4OWU5ZWUYACAAKAAw+bD48LEwOO2h+s7nL0DtofrO5y9KHG9QVmtod0JSYlY2NUtDV1IyK0lPTkhXb091OD1lAAAAAMI+AmAAEqwBCBISpwEKHGlTaXp2QkM5QWlEYm91UEpsaHRWZFVOVHR0OD0SJDA5ZWE2YTYzLTZiYmQtNDQyYy1hYmNjLTEzNjU1YTQyN2JjZhgAIAAoADCly5/X8C84isyf1/AvQIrMn9fwL0ocQ29CaDlQUnR1M3hoZmc0UFNocXFLVUVHVW5jPVoeIhx1aldmeG1MT2lSOUpJUi9teEpjRzN5UU9HZTA9ZQAAAADCPgJgAhKtAQgNEqgBChxTcEZUL3dQOEZ3RFozdlM0b0pDYTlROVBoWjA9EiQ0NjY2YjZjMS1lMmI1LTQ3NjEtYjFiZC04YjY2ZGM2YWFmODMYACAAKAAwlvqdhNkuOOXJ+s7nL0DlyfrO5y9KHHBlMDE1TzBTS2tCdUJUTE5FbHU1S1ZSVytsVT1aHyIds1EvdFBybUhOclJHMGxUUXVVclp1SDc0WlZOcz1lI3XTOcI+AmAFEqwBCBESpwEKHHhWdFZ2VllwZUZnUURwemlBdWs4Q2N2Tyt3Yz0SJDk4ZmQwODAzLWJmZTYtNGE2NS04NDcyLTNmMzg0ODM2OWQ4NRgAIAAoADCly5/X8C846suf1/AvQOrLn9fwL0ocaDRMNXk4Q1VuN0RiWlZlek9qUWJxSk9PbWtzPVoeIhwxVVBIc0hEQkwxRmhGOWx0clpvSTR2NFkza2M9ZQAAAADCPgJgAhKtAQgPEqgBChxtVG9xUVJSclZEMzBzZG5DbmxMc0t0V1BqQWc9EiRlOTg0YTUzMS1jOTJiLTRhNGQtYjVlNC0zMmJmZDMyZjY1YTQYACAAKAAw3by3y9czOJ+G+87nL0CfhvvO5y9KHDZFVnB2cUhXbjV2Q3pibHJtQkhsQzhzL1BQZz1aHyId7HhwMlFiWDNmbVVTZzdvdTE1QU8zbDRJVXQ1OD1liJjdX8I+AmAFEowBCAMShwEKHG5qZ0R1ODhlQ3J2WHA4NnBEN2ZIR2NxRnA4OD0SJDNiMTNlN2NmLTZiZGMtNWIxZS1iOTljLTM5N2Y1MjRmOTJkZRgAIAAoADD5sPjwsTA4uqP6zucvQLqj+s7nL0oceXpOQjAxY241NEE3Y1JVMHVUKy9QZ21UdFVvPWUAAAAAwj4CYAASrAEICxKnAQoccDUxQXgyZXhZRzY5Wi9yMGprNTdqalRyaVNjPRIkNGRkMzMxZTgtOTQ5OC00MWVjLTlkZTQtOWJiZGUzM2U3Y2FhGAAgACgAMPOFmb3JLjiixfrO5y9AosX6zucvShxwYjRQUC8rTjlHUTZoSm1TbkN1cEdSdnhsZkU9Wh4iHEVyOFR1bDIxYndPdkEzU21tbnNCNFV2MldUdz1lLLTHVsI+AmAFEqwBCAwSpwEKHDY0OGkrTVluc2tVU1psN0JOQmJzcURwTmRjMD0SJDNiNmJkOTM2LTE3MmUtNDcyNC05YWFmLWUyMDI3YjM3ZjdjNxgAIAAoADCLiaD90C44ncf6zucvQJ3H+s7nL0ocL2t0R2lZRkdaNU5GWDVFMFZqMEIvaE5Ec1l3PVoeIhxmWnVIR2FIZHRock52dUgvTFFRUXZLRUxTTFU9ZQAAAADCPgJgBRKsAQgKEqcBChxEY1VydmhSa0dGS0o3alhTSDVqTXo5d0NZTjg9EiRhMTQ3MzM1Yy1kYWUwLTQxMmYtYjAyYy0xYjFkOTg1ZmVlZGEYACAAKAAw3ry3y9czOKTK+s7nL0CkyvrO5y9KHHBYdk5yQVFPUHdqdzVDanFyTWIrU2NDVFBsQT1aHiIcQUcrSDQzanlCY3VNVm1NYW9WMGxkQ0pEZkRJPWWImN1fwj4CYAUSrQEIEBKoAQocUUVFOWx6QXBKTS9YOVNxZmJnU0JJU2VLTkw0PRIkZjAxYWM3NDEtZjkzZi00OTI1LTk3YjQtODE5OGQ1YmU1Nzc5GAAgACgAMKXLn9fwLzjLy5/X8C9Ay8uf1/AvShxRUTl5dmNwNW4wS0RxaHJiYXE4VHhZYmJlWWc9Wh8iHfZaUUN6STJGRFVUNm5VZlkycnF5RmY1MDhzVEk9ZQAAAADCPgJgABKtAQgOEqgBChxIeGZDQTZhZml2WmYvZGZiOVRiby9GNEdDaHM9EiQ0M2Y0ZjdhYi02MTk2LTQ1ZjItOTJjYy1hMTc5NzBjMTMyNzcYACAAKAAw6cb1u78yON/L+s7nL0Dfy/rO5y9KHDFIL05kdFAxTE41MGdwTjM0ZG1Ed2lRM2VaST1aHyId2XNhNGJNRW9wTE42SS8zNnRBYUd4MVdTUmhIUT1lf1fVD8I+AmAFEowBCAEShwEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJGVlMDlkMjJmLTJiYzItNWMyZi05ZTk2LTczMmQxYTQ5NzcyMhgAIAAoADD5sPjwsTA4r6H6zucvQK+h+s7nL0ocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPWUAAAAAwj4CYAAwADgA",
+   "version": 1
+}
