@@ -47,8 +47,6 @@ class TextbookListPage extends StatefulWidget {
 class _TextbookListPageState extends State<TextbookListPage> {
   // FutureBuilder uses this request to show loading, error, and catalog states.
   late Future<List<Map<String, dynamic>>> _textbooks;
-  final Set<String> _hiddenTextbookIds = {};
-
   @override
   void initState() {
     super.initState();
@@ -122,25 +120,6 @@ class _TextbookListPageState extends State<TextbookListPage> {
         ],
       ),
     );
-  }
-
-  // Hide a listing locally for this session without deleting it from Supabase.
-  void _temporarilyRemove(Map<String, dynamic> textbook) {
-    final id = textbook['id'] as String;
-    setState(() => _hiddenTextbookIds.add(id));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Textbook hidden for this session'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () => setState(() => _hiddenTextbookIds.remove(id)),
-        ),
-      ),
-    );
-  }
-
-  void _restoreHiddenTextbooks() {
-    setState(() => _hiddenTextbookIds.clear());
   }
 
   // Shows the add-listing form, validates it, then inserts the textbook.
@@ -224,9 +203,57 @@ class _TextbookListPageState extends State<TextbookListPage> {
     );
   }
 
+  // Ask for confirmation, then permanently delete the listing from Supabase.
+  Future<void> _deleteTextbook(Map<String, dynamic> textbook) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete textbook?'),
+        content: Text('“${textbook['title']}” will be permanently deleted.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    try {
+      final deleted = await Supabase.instance.client
+          .from('textbooks')
+          .delete()
+          .eq('id', textbook['id'])
+          .select('id');
+
+      if (deleted.isEmpty) {
+        throw StateError(
+          'No textbook was deleted. Check the Supabase delete permission.',
+        );
+      }
+      if (!mounted) return;
+
+      await _refresh();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Textbook deleted')));
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Couldn't delete textbook: $error")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Scaffold provides the app's bar, the catalog body, and the buton for adding textbooks.
+    // Scaffold provides the app's bar, the catalog body, and the button for adding textbooks.
     return Scaffold(
       appBar: AppBar(
         title: const Text('Textbooks'),
@@ -251,21 +278,9 @@ class _TextbookListPageState extends State<TextbookListPage> {
               ),
             );
           }
-          final textbooks = snapshot.data!
-              .where(
-                (textbook) =>
-                    !_hiddenTextbookIds.contains(textbook['id'] as String),
-              )
-              .toList();
+          final textbooks = snapshot.data!;
           if (textbooks.isEmpty) {
-            return Center(
-              child: _hiddenTextbookIds.isEmpty
-                  ? const Text('No textbooks listed yet.')
-                  : TextButton(
-                      onPressed: _restoreHiddenTextbooks,
-                      child: const Text('Show hidden textbooks'),
-                    ),
-            );
+            return const Center(child: Text('No textbooks listed yet.'));
           }
           return Center(
             child: ConstrainedBox(
@@ -332,7 +347,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                         child: Icon(Icons.share, size: 16),
                                       ),
                                       IconButton(
-                                        tooltip: 'Temporarily remove',
+                                        tooltip: 'Delete textbook',
                                         visualDensity: VisualDensity.compact,
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(
@@ -340,7 +355,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                           minHeight: 32,
                                         ),
                                         onPressed: () =>
-                                            _temporarilyRemove(textbook),
+                                            _deleteTextbook(textbook),
                                         icon: const Icon(Icons.close, size: 16),
                                       ),
                                     ],
