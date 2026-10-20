@@ -1,0 +1,54 @@
+2026-10-10 21:16:24.387: [INFO] CurrentProfilePath: C:\Users\kcatm\AppData\Local\Temp\flutter_tools.55cfa3b4\flutter_tools_chrome_device.fcfef903\Default
+2026-10-10 21:16:24.387: [INFO] Profiles total count: 1
+2026-10-10 21:16:24.387: [INFO] Profile: name=Profile 1 path=C:\Users\kcatm\AppData\Local\Temp\flutter_tools.55cfa3b4\flutter_tools_chrome_device.fcfef903\Default lastActive=null
+2026-10-10 21:16:24.387: [INFO] LastUsedProfileDir: C:\Users\kcatm\AppData\Local\Temp\flutter_tools.55cfa3b4\flutter_tools_chrome_device.fcfef903\Default
+2026-10-10 21:16:24.387: [INFO] VisibilityChanged: 0
+2026-10-10 21:16:24.466: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.470: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.473: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.476: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.479: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.483: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.486: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.490: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.494: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.498: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:24.524: [INFO] OnDoneLoading sync enabled: 0
+2026-10-10 21:16:24.524: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-10 21:16:24.524: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-10 21:16:24.524: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-10 21:16:25.868: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:28.743: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-10-10 21:16:28.755: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-10 21:16:28.764: [INFO] Primary account changed.
+2026-10-10 21:16:28.764: [INFO] OnPrimaryAccountChanged PrimaryAccountChangeEvent::Type::kSet
+2026-10-10 21:16:28.803: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-10 21:16:28.843: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-10 21:16:29.669: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:29.672: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:29.673: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.018: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.019: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.020: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.020: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.021: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.022: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.023: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.023: [INFO] BookmarkNodeMoved
+2026-10-10 21:16:38.023: [INFO] BookmarkNodeMoved
+2026-10-10 21:16:38.023: [INFO] ReorderChildren, Url: 0, IsFolder: 1, IsWorkspace: 0
+2026-10-10 21:16:38.023: [INFO] Remove, DeletionOrigin: 19
+2026-10-10 21:16:38.024: [INFO] BookmarkNodeRemoved, Url: 0, IsFolder: 1, IsWorkspace: 0
+2026-10-10 21:16:38.025: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.025: [INFO] Remove, DeletionOrigin: 19
+2026-10-10 21:16:38.026: [INFO] BookmarkNodeRemoved, Url: 1, IsFolder: 0, IsWorkspace: 0
+2026-10-10 21:16:38.026: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.026: [INFO] Remove, DeletionOrigin: 19
+2026-10-10 21:16:38.027: [INFO] BookmarkNodeRemoved, Url: 1, IsFolder: 0, IsWorkspace: 0
+2026-10-10 21:16:38.028: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.029: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.030: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.031: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:38.031: [INFO] BookmarkNodeAdded, ABU: 0
+2026-10-10 21:16:42.182: [INFO] Sync initialization duration: 13156ms
+2026-10-10 21:17:14.291: [INFO] BookmarksSnapshot Shutdown total=11 bar=10 other=0 mobile=0 showBar=0 showBarNTP=1
