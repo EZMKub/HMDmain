@@ -382,3 +382,8 @@ class _TextbookListPageState extends State<TextbookListPage> {
     );
   }
 }
+
+//generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
+class NumberGenerator{
+
+}
