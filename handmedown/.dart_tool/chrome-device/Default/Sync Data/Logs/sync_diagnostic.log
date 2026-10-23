@@ -127,3 +127,37 @@
 2026-10-10 21:16:42.183: [INFO][SyncEngineBackend::DoStartSyncing] Start syncing
 2026-10-10 21:17:14.291: [INFO][Sync] Reset engine, reason: 0
 2026-10-10 21:17:14.291: [INFO][Sync] Reset engine with reason: 0
+2026-10-22 20:58:38.095: [INFO][Sync] SyncState after authenticated was: FeatureNotRequestedNotSetup
+2026-10-22 20:58:38.596: [INFO][Sync] Try to start sync engine
+2026-10-22 20:58:38.599: [INFO][SyncManagerImpl::NudgeForInitialDownload] Initial download nudge for Encryption Keys
+2026-10-22 20:58:38.599: [INFO][SyncEngineBackend::LoadAndConnectNigoriController] Load and connect Nigori controller
+2026-10-22 20:58:38.599: [INFO][SyncEngineBackend::DoInitialize] Control Types added: Encryption Keys
+2026-10-22 20:58:38.599: [INFO][SyncManagerImpl::ConfigureSyncer] Types to download: Encryption Keys with reason: 3
+2026-10-22 20:58:38.599: [INFO][SyncSchedulerImpl::DoConfigurationSyncCycleJob] Configure job was blocked
+2026-10-22 20:58:39.478: [INFO][SyncAuthManager::SetLastAuthError] Current auth error: PERSISTENT_ERROR, EDGE_AUTH_ERROR: 3, 49, 0
+2026-10-22 20:58:39.478: [INFO][Sync] Credentials changed for: EdgeSyncScopeNew
+2026-10-22 20:58:39.478: [ERROR][Sync]     Engine is not allowed to run, reason: 0000000
+2026-10-22 20:58:39.478: [INFO][Sync] Reset engine, reason: 6
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Bookmarks
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Preferences
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Passwords
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Autofill Profiles
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Autofill
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Extensions
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Sessions
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Extension settings
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: History Delete Directives
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Device Info
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: User Consents
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Send Tab To Self
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Web Apps
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: History
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Saved Tab Group
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: WebAuthn Credentials
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Edge Hub App Usage
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Edge Journey
+2026-10-22 20:58:39.479: [INFO][Sync] Stopped: Edge Workspace
+2026-10-22 20:58:39.479: [INFO][Sync] Reset engine with reason: 6
+2026-10-22 20:58:39.494: [INFO][SyncAuthManager::SetLastAuthError] Current auth error: PERSISTENT_ERROR, EDGE_AUTH_ERROR: 3, 49, 0
+2026-10-22 20:58:39.494: [INFO][Sync] Credentials changed for: EdgeSyncKeyDataScope
+2026-10-22 20:59:36.058: [INFO][Sync] Reset engine, reason: 0

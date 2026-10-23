@@ -146,6 +146,10 @@ class _TextbookListPageState extends State<TextbookListPage> {
   // Shows the add-listing form, validates it, then inserts the textbook.
   Future<void> _addTextbook() async {
     final formKey = GlobalKey<FormState>();
+    final _titleController = TextEditingController();
+    final _authorController = TextEditingController();
+    final _conditionController = TextEditingController();
+    final _communicationController = TextEditingController();
     final textbook = <String, String>{};
     final values = await showDialog<bool>(
       context: context,
@@ -322,15 +326,29 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(right: 8),
-                                        child: Icon(
-                                          Icons.bookmark_border_rounded,
-                                          size: 16,
+          
+                                        child: IconButton(
+                                          tooltip: 'edit listing',
+                                          visualDensity: VisualDensity.compact,
+                                          padding: EdgeInsets.zero,
+                                          constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        // need to change onPressed to request random key,
+                                        // then allow user to edit if they input the correct key. 
+                                
+                                        onPressed: () =>
+                                        // could create new function, or simply repurpose add and remove for the most vile product
+                                        // need to consider how to fill a form with previously entered data 
+                                            _addTextbook(),
+                                        icon: const Icon(Icons.edit, size: 16),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 8),
-                                        child: Icon(Icons.share, size: 16),
-                                      ),
+                                      //Padding(
+                                      // padding: EdgeInsets.only(right: 8),
+                                       //child: Icon(Icons.share, size: 16),
+                                     // ),
                                       IconButton(
                                         tooltip: 'Temporarily remove',
                                         visualDensity: VisualDensity.compact,
