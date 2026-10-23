@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'dart:math';
 const _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const _supabaseKey = String.fromEnvironment('SUPABASE_ANON_KEY');
 
@@ -384,6 +384,31 @@ class _TextbookListPageState extends State<TextbookListPage> {
 }
 
 //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
-class NumberGenerator{
+class CodeNumberProcessing{
+  final codesList = [];
+  int validCode = 0;
+  
+  Future<void> numberGenerator(){
+    var random = random();
+    String codeString = "";
+    int codeNumberOne = random.nextInt(10);
+    int codeNumberTwo = random.nextInt(10);
+    int codeNumberThree = random.nextInt(10);
+    codeString += codeNumberOne.toString();
+    codeString += codeNumberTwo.toString();
+    codeString += codeNumberThree.toString();
+    validCode = int.parse(codeString);
+  }
+
+  Future<void> checkCode(){
+    //checks if the generated code is a duplicate
+    for (int i = 0; i < codesList.length; i++){
+      if (validCode = codesList[i]){
+        numberGenerator();
+        i = 0;
+      }
+    }
+    codesList.add(validCode);
+  }
 
 }
