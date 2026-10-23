@@ -47,8 +47,6 @@ class TextbookListPage extends StatefulWidget {
 class _TextbookListPageState extends State<TextbookListPage> {
   // FutureBuilder uses this request to show loading, error, and catalog states.
   late Future<List<Map<String, dynamic>>> _textbooks;
-  final Set<String> _hiddenTextbookIds = {};
-
   @override
   void initState() {
     super.initState();
@@ -58,7 +56,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
   Future<List<Map<String, dynamic>>> _loadTextbooks() async {
     final rows = await Supabase.instance.client
         .from('textbooks')
-        .select('id, title, author, created_at')
+        .select('id, title, author, isbn, condition, created_at')
         .order('created_at', ascending: false);
     return List<Map<String, dynamic>>.from(rows);
   }
@@ -124,26 +122,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
     );
   }
 
-  // Hide a listing locally for this session without deleting it from Supabase.
-  void _temporarilyRemove(Map<String, dynamic> textbook) {
-    final id = textbook['id'] as String;
-    setState(() => _hiddenTextbookIds.add(id));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Textbook hidden for this session'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () => setState(() => _hiddenTextbookIds.remove(id)),
-        ),
-      ),
-    );
-  }
-
-  void _restoreHiddenTextbooks() {
-    setState(() => _hiddenTextbookIds.clear());
-  }
-
-  // Shows the add-listing form, validates it, then inserts the textbook.
+  // Shows the add-listing form, validates it, then inserts the textbook if valid.
   Future<void> _addTextbook() async {
     final formKey = GlobalKey<FormState>();
     final _titleController = TextEditingController();
@@ -160,17 +139,59 @@ class _TextbookListPageState extends State<TextbookListPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _requiredField(
+              // Update to be drop down
+              _textField(
+                label: 'Course name',
+                error: 'Enter a name',
+                onSaved: (value) => textbook['course'] = value,
+              ),
+              _textField(
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
-              _requiredField(
+              _textField(
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
-              _requiredField(
+              _textField(
+                label: 'ISBN',
+                error: 'Enter ISBN',
+                isRequired: false,
+                onSaved: (value) => textbook['isbn'] = value,
+              ),
+              // Update to be drop down
+              DropdownButtonFormField<String>
+              (
+                initialValue: 'Fair',
+                decoration: const InputDecoration(labelText: 'Condition'),
+                items: <DropdownMenuItem<String>> 
+                [
+                  // Initializes the value of the dropdown, assigned text as a child of the value
+                  DropdownMenuItem(value: 'New', child: Text('New')),
+                  DropdownMenuItem(value: 'Good', child: Text('Good')),
+                  DropdownMenuItem(value: 'Fair', child: Text('Fair')),
+                  DropdownMenuItem(value: 'Damaged', child: Text('Damaged')),
+                ],
+                onChanged: (value) 
+                {
+                  if (value != null) 
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+
+                onSaved: (value) 
+                {
+                  if (value != null)
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+              ),
+              _textField
+              (
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -200,7 +221,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
       await Supabase.instance.client.from('textbooks').insert({
         ...textbook,
         // Keep compatibility with the original schema's required condition.
-        'condition': 'Good',
+        //'condition': 'Fair',
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context)
@@ -214,23 +235,83 @@ class _TextbookListPageState extends State<TextbookListPage> {
     }
   }
 
-  // Required text input used in the add form.
-  Widget _requiredField({
+  // Text input used in the add form, change whether or not it's optional by using isRequired.
+  Widget _textField({
     required String label,
     required String error,
     required ValueChanged<String> onSaved,
+    bool isRequired = true,
   }) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
-      validator: (value) =>
-          value == null || value.trim().isEmpty ? error : null,
-      onSaved: (value) => onSaved(value!.trim()),
+      // Set false with optional fields
+      validator: isRequired
+          ? (value) => value == null || value.trim().isEmpty
+              ? 'Enter $label' 
+              : null
+          : null,
+      onSaved: (value) 
+      {
+        final text = value?.trim() ?? '';
+        if (text.isNotEmpty) 
+        {
+          onSaved(text);
+        }
+      }
     );
+  }
+
+  // Ask for confirmation, then permanently delete the listing from Supabase.
+  Future<void> _deleteTextbook(Map<String, dynamic> textbook) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete textbook?'),
+        content: Text('“${textbook['title']}” will be permanently deleted.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    try {
+      final deleted = await Supabase.instance.client
+          .from('textbooks')
+          .delete()
+          .eq('id', textbook['id'])
+          .select('id');
+
+      if (deleted.isEmpty) {
+        throw StateError(
+          'No textbook was deleted. Check the Supabase delete permission.',
+        );
+      }
+      if (!mounted) return;
+
+      await _refresh();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Textbook deleted')));
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Couldn't delete textbook: $error")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold provides the app's bar, the catalog body, and the buton for adding textbooks.
+    // Scaffold provides the app's bar, the catalog body, and the button for adding textbooks.
     return Scaffold(
       appBar: AppBar(
         title: const Text('Textbooks'),
@@ -255,21 +336,9 @@ class _TextbookListPageState extends State<TextbookListPage> {
               ),
             );
           }
-          final textbooks = snapshot.data!
-              .where(
-                (textbook) =>
-                    !_hiddenTextbookIds.contains(textbook['id'] as String),
-              )
-              .toList();
+          final textbooks = snapshot.data!;
           if (textbooks.isEmpty) {
-            return Center(
-              child: _hiddenTextbookIds.isEmpty
-                  ? const Text('No textbooks listed yet.')
-                  : TextButton(
-                      onPressed: _restoreHiddenTextbooks,
-                      child: const Text('Show hidden textbooks'),
-                    ),
-            );
+            return const Center(child: Text('No textbooks listed yet.'));
           }
           return Center(
             child: ConstrainedBox(
@@ -313,7 +382,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${textbook['author']} · '
+                                    '${textbook['author']} · ${textbook['condition']} · '
                                     '${listedAt == null ? 'Textbook listing' : listedAt.toLocal().toString().split(' ').first}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -350,7 +419,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                        //child: Icon(Icons.share, size: 16),
                                      // ),
                                       IconButton(
-                                        tooltip: 'Temporarily remove',
+                                        tooltip: 'Delete textbook',
                                         visualDensity: VisualDensity.compact,
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(
@@ -358,7 +427,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                           minHeight: 32,
                                         ),
                                         onPressed: () =>
-                                            _temporarilyRemove(textbook),
+                                            _deleteTextbook(textbook),
                                         icon: const Icon(Icons.close, size: 16),
                                       ),
                                     ],
