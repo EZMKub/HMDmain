@@ -125,9 +125,11 @@ class _TextbookListPageState extends State<TextbookListPage> {
   // Shows the add-listing form, validates it, then inserts the textbook if valid.
   Future<void> _addTextbook() async {
     final formKey = GlobalKey<FormState>();
+    final _courseController = TextEditingController();
     final _titleController = TextEditingController();
     final _authorController = TextEditingController();
     final _conditionController = TextEditingController();
+    final _isbnController = TextEditingController();
     final _communicationController = TextEditingController();
     final textbook = <String, String>{};
     final values = await showDialog<bool>(
@@ -141,21 +143,25 @@ class _TextbookListPageState extends State<TextbookListPage> {
             children: [
               // Update to be drop down
               _textField(
+                controller : _courseController, 
                 label: 'Course name',
                 error: 'Enter a name',
                 onSaved: (value) => textbook['course'] = value,
               ),
               _textField(
+                controller: _titleController,
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
               _textField(
+                controller: _authorController, 
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
               _textField(
+                controller: _isbnController,
                 label: 'ISBN',
                 error: 'Enter ISBN',
                 isRequired: false,
@@ -192,6 +198,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
               ),
               _textField
               (
+                controller: _communicationController,
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -240,6 +247,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
     required String label,
     required String error,
     required ValueChanged<String> onSaved,
+    required TextEditingController controller,
     bool isRequired = true,
   }) {
     return TextFormField(
@@ -418,6 +426,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                       // padding: EdgeInsets.only(right: 8),
                                        //child: Icon(Icons.share, size: 16),
                                      // ),
+                                     
                                       IconButton(
                                         tooltip: 'Delete textbook',
                                         visualDensity: VisualDensity.compact,
