@@ -408,7 +408,7 @@ class CodeNumberProcessing{
       }
     }
     codesList.add(validCode);
-    validCode = 0;
+    //validCode = 0;
 
     throw Exception("number not generated");
   }
