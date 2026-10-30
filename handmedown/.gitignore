@@ -18,6 +18,14 @@ migrate_working_dir/
 *.iws
 .idea/
 
+# Specific preferences
+ .dart_tool/
+
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+ios/Runner/GeneratedPluginRegistrant.m
+linux/flutter/generated_plugins.cmake
+windows/flutter/generated_plugins.cmake
+
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
