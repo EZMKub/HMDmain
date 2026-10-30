@@ -390,7 +390,7 @@ class CodeNumberProcessing{
 
   //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
   Future<void> numberGenerator(){
-    var random = random();
+    var random = Random();
     String codeString = "";
     int codeNumberOne = random.nextInt(10);
     int codeNumberTwo = random.nextInt(10);
@@ -399,17 +399,18 @@ class CodeNumberProcessing{
     codeString += codeNumberTwo.toString();
     codeString += codeNumberThree.toString();
     validCode = int.parse(codeString);
-  }
 
-  //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
-  Future<void> checkCode(){
+    //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
     for (int i = 0; i < codesList.length; i++){
       if (validCode = codesList[i]){
         numberGenerator();
         i = 0;
       }
     }
-    codesList.add(validCode);  //potentially set this back to 0
+    codesList.add(validCode);
+    //validCode = 0;
+
+    throw Exception("number not generated");
   }
 
 }
