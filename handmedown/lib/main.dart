@@ -61,6 +61,15 @@ class _TextbookListPageState extends State<TextbookListPage> {
     return List<Map<String, dynamic>>.from(rows);
   }
 
+Future<Map<String, dynamic>> _loadTextbook() async {
+    final book = await Supabase.instance.client
+        .from('textbooks')
+        .select('id, title, author, isbn, condition, created_at')
+        .maybeSingle();
+    return Map<String, dynamic>.from(book);
+  }
+
+
   // Reloads the catalog after a user refreshes or adds a textbook.
   Future<void> _refresh() async {
     final request = _loadTextbooks();
@@ -128,7 +137,6 @@ class _TextbookListPageState extends State<TextbookListPage> {
     final _courseController = TextEditingController();
     final _titleController = TextEditingController();
     final _authorController = TextEditingController();
-    final _conditionController = TextEditingController();
     final _isbnController = TextEditingController();
     final _communicationController = TextEditingController();
     final textbook = <String, String>{};
@@ -239,6 +247,123 @@ class _TextbookListPageState extends State<TextbookListPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not add textbook: $error')));
+    }
+  }
+
+//when I am done, _editTextbook should grab all of the selected textbook's values from 
+//the database, then populate the form fields with those values for editing. 
+//then the form fields should be updated with any changes. 
+Future<void> _editTextbook() async {
+    final formKey = GlobalKey<FormState>();
+    final textbook = <String, String>{};
+    final oldTextbook = Map<String, String>;
+    final values = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Edit textbook'),
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Update to be drop down
+              _textField(
+                controller : TextEditingController(text: textbook['course']), 
+                label: 'Course name',
+                error: 'Enter a name',
+                onSaved: (value) => textbook['course'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: textbook['title']),
+                label: 'Textbook title',
+                error: 'Enter a title',
+                onSaved: (value) => textbook['title'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: textbook['author']), 
+                label: 'Author',
+                error: 'Enter an author',
+                onSaved: (value) => textbook['author'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: textbook['isbn']),
+                label: 'ISBN',
+                error: 'Enter ISBN',
+                isRequired: false,
+                onSaved: (value) => textbook['isbn'] = value,
+              ),
+              // Update to be drop down
+              DropdownButtonFormField<String>
+              (
+                initialValue: 'Fair',
+                decoration: const InputDecoration(labelText: 'Condition'),
+                items: <DropdownMenuItem<String>> 
+                [
+                  // Initializes the value of the dropdown, assigned text as a child of the value
+                  DropdownMenuItem(value: 'New', child: Text('New')),
+                  DropdownMenuItem(value: 'Good', child: Text('Good')),
+                  DropdownMenuItem(value: 'Fair', child: Text('Fair')),
+                  DropdownMenuItem(value: 'Damaged', child: Text('Damaged')),
+                ],
+                onChanged: (value) 
+                {
+                  if (value != null) 
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+
+                onSaved: (value) 
+                {
+                  if (value != null)
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+              ),
+              _textField
+              (
+                controller: TextEditingController(text: textbook['communication_method']),
+                label: 'Preferred communication method',
+                error: 'Enter a contact method',
+                onSaved: (value) => textbook['communication_method'] = value,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (!formKey.currentState!.validate()) return;
+              formKey.currentState!.save();
+              Navigator.pop(dialogContext, true);
+            },
+            child: const Text('Edit'),
+          ),
+        ],
+      ),
+    );
+    if (values != true || !mounted) return;
+
+    try {
+      await Supabase.instance.client.from('textbooks').update({
+        ...textbook,
+        // Keep compatibility with the original schema's required condition.
+        //'condition': 'Fair',
+      });
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Textbook edited')));
+      _refresh();
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not edit textbook: $error')));
     }
   }
 
@@ -418,7 +543,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                         onPressed: () =>
                                         // could create new function, or simply repurpose add and remove for the most vile product
                                         // need to consider how to fill a form with previously entered data 
-                                            _addTextbook(),
+                                            _editTextbook(),
                                         icon: const Icon(Icons.edit, size: 16),
                                         ),
                                       ),
