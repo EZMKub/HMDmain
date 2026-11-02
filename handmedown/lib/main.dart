@@ -27,7 +27,7 @@ class HandMeDownApp extends StatelessWidget {
           : const Scaffold(
               body: Center(
                 child: Text(
-                  'Configure SUPABASE_URL and SUPABASE_ANON_KEY to start.',
+                  'Run the program using the steps in RunInstructions.md',
                   textAlign: TextAlign.center,
                 ),
               ),

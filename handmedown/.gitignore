@@ -33,13 +33,11 @@ windows/flutter/generated_plugins.cmake
 **/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins-dependencies
+devtools_options.yaml
 .pub-cache/
 .pub/
 /build/
 /coverage/
-
-# Web emulator related
-*.dart_tool/chrome-device/Default/
 
 # Symbolication related
 app.*.symbols
