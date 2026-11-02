@@ -452,10 +452,6 @@ class _TextbookListPageState extends State<TextbookListPage> {
   }
 }
 
-<<<<<<< HEAD
-//generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
-class NumberGenerator {}
-=======
 //Class for processing number codes, like creating and checking for duplicates
 class CodeNumberProcessing{
   final codesList = [];
@@ -487,4 +483,3 @@ class CodeNumberProcessing{
   }
 
 }
->>>>>>> main

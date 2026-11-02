@@ -18,9 +18,6 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# Specific preferences
- .dart_tool/
-
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 ios/Runner/GeneratedPluginRegistrant.m
 linux/flutter/generated_plugins.cmake
