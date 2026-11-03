@@ -2,6 +2,7 @@
 
 A Flutter app for browsing and listing textbooks in a shared Supabase catalog.
 
+
 To run, put:
 
    flutter pub get
