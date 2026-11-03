@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:math';
+// import 'dart:math';
 const _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const _supabaseKey = String.fromEnvironment('SUPABASE_ANON_KEY');
 
@@ -66,7 +66,7 @@ Future<Map<String, dynamic>> _loadTextbook() async {
         .from('textbooks')
         .select('id, title, author, isbn, condition, created_at')
         .maybeSingle();
-    return Map<String, dynamic>.from(book);
+    return Map<String, dynamic>.from(book ?? {});
   }
 
 
@@ -256,7 +256,7 @@ Future<Map<String, dynamic>> _loadTextbook() async {
 Future<void> _editTextbook() async {
     final formKey = GlobalKey<FormState>();
     final textbook = <String, String>{};
-    final oldTextbook = Map<String, String>;
+    final oldTextbook = await _loadTextbook();
     final values = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -268,25 +268,25 @@ Future<void> _editTextbook() async {
             children: [
               // Update to be drop down
               _textField(
-                controller : TextEditingController(text: textbook['course']), 
+                controller : TextEditingController(text: oldTextbook['course']), 
                 label: 'Course name',
                 error: 'Enter a name',
                 onSaved: (value) => textbook['course'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: textbook['title']),
+                controller: TextEditingController(text: oldTextbook['title']),
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: textbook['author']), 
+                controller: TextEditingController(text: oldTextbook['author']), 
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: textbook['isbn']),
+                controller: TextEditingController(text: oldTextbook['isbn']),
                 label: 'ISBN',
                 error: 'Enter ISBN',
                 isRequired: false,
@@ -295,7 +295,7 @@ Future<void> _editTextbook() async {
               // Update to be drop down
               DropdownButtonFormField<String>
               (
-                initialValue: 'Fair',
+                initialValue: oldTextbook['condition'],
                 decoration: const InputDecoration(labelText: 'Condition'),
                 items: <DropdownMenuItem<String>> 
                 [
@@ -323,7 +323,7 @@ Future<void> _editTextbook() async {
               ),
               _textField
               (
-                controller: TextEditingController(text: textbook['communication_method']),
+                controller: TextEditingController(text: oldTextbook['communication_method']),
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -531,6 +531,7 @@ Future<void> _editTextbook() async {
           
                                         child: IconButton(
                                           tooltip: 'edit listing',
+                                      
                                           visualDensity: VisualDensity.compact,
                                           padding: EdgeInsets.zero,
                                           constraints: const BoxConstraints(
