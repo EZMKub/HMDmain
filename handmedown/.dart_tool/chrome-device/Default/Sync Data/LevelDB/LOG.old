@@ -1,0 +1,112 @@
+2026/11/03-17:51:43.303 1b30 Creating DB C:\Users\kcatm\AppData\Local\Temp\flutter_tools.49971cd3\flutter_tools_chrome_device.2ecbc3f4\Default\Sync Data\LevelDB since it was missing.
+2026/11/03-17:51:43.446 1b30 Reusing MANIFEST C:\Users\kcatm\AppData\Local\Temp\flutter_tools.49971cd3\flutter_tools_chrome_device.2ecbc3f4\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/11/03-17:51:43.448 1b30 Recovering log #4
+2026/11/03-17:51:43.450 1b30 Level-0 table #3: started
+2026/11/03-17:51:43.463 1b30 Level-0 table #3: 130634 bytes OK
+2026/11/03-17:51:43.463 1b30 Recovering log #7
+2026/11/03-17:51:43.465 1b30 Level-0 table #5: started
+2026/11/03-17:51:43.495 1b30 Level-0 table #5: 213381 bytes OK
+2026/11/03-17:51:43.495 1b30 Recovering log #10
+2026/11/03-17:51:43.497 1b30 Level-0 table #8: started
+2026/11/03-17:51:43.511 1b30 Level-0 table #8: 144779 bytes OK
+2026/11/03-17:51:43.511 1b30 Recovering log #13
+2026/11/03-17:51:43.512 1b30 Level-0 table #11: started
+2026/11/03-17:51:43.520 1b30 Level-0 table #11: 79182 bytes OK
+2026/11/03-17:51:43.520 1b30 Recovering log #17
+2026/11/03-17:51:43.521 1b30 Level-0 table #14: started
+2026/11/03-17:51:43.585 1b30 Level-0 table #14: 168445 bytes OK
+2026/11/03-17:51:43.585 1b30 Recovering log #19
+2026/11/03-17:51:43.586 1b30 Level-0 table #18: started
+2026/11/03-17:51:43.745 1b30 Level-0 table #18: 229984 bytes OK
+2026/11/03-17:51:43.745 1b30 Recovering log #22
+2026/11/03-17:51:43.747 1b30 Level-0 table #20: started
+2026/11/03-17:51:43.904 1b30 Level-0 table #20: 249475 bytes OK
+2026/11/03-17:51:43.904 1b30 Recovering log #25
+2026/11/03-17:51:43.906 1b30 Level-0 table #23: started
+2026/11/03-17:51:44.064 1b30 Level-0 table #23: 285425 bytes OK
+2026/11/03-17:51:44.064 1b30 Recovering log #28
+2026/11/03-17:51:44.064 1b30 Level-0 table #26: started
+2026/11/03-17:51:44.083 1b30 Level-0 table #26: 1027 bytes OK
+2026/11/03-17:51:44.083 1b30 Recovering log #32
+2026/11/03-17:51:44.084 1b30 Level-0 table #29: started
+2026/11/03-17:51:44.097 1b30 Level-0 table #29: 17562 bytes OK
+2026/11/03-17:51:44.097 1b30 Recovering log #35
+2026/11/03-17:51:44.099 1b30 Level-0 table #33: started
+2026/11/03-17:51:44.162 1b30 Level-0 table #33: 135846 bytes OK
+2026/11/03-17:51:44.163 1b30 Recovering log #38
+2026/11/03-17:51:44.164 1b30 Level-0 table #36: started
+2026/11/03-17:51:44.205 1b30 Level-0 table #36: 253673 bytes OK
+2026/11/03-17:51:44.205 1b30 Recovering log #41
+2026/11/03-17:51:44.207 1b30 Level-0 table #39: started
+2026/11/03-17:51:44.222 1b30 Level-0 table #39: 234091 bytes OK
+2026/11/03-17:51:44.222 1b30 Recovering log #45
+2026/11/03-17:51:44.224 1b30 Level-0 table #42: started
+2026/11/03-17:51:44.241 1b30 Level-0 table #42: 228886 bytes OK
+2026/11/03-17:51:44.242 1b30 Recovering log #48
+2026/11/03-17:51:44.243 1b30 Level-0 table #46: started
+2026/11/03-17:51:44.257 1b30 Level-0 table #46: 233100 bytes OK
+2026/11/03-17:51:44.257 1b30 Recovering log #51
+2026/11/03-17:51:44.258 1b30 Level-0 table #49: started
+2026/11/03-17:51:44.272 1b30 Level-0 table #49: 188745 bytes OK
+2026/11/03-17:51:44.272 1b30 Recovering log #54
+2026/11/03-17:51:44.273 1b30 Level-0 table #52: started
+2026/11/03-17:51:44.282 1b30 Level-0 table #52: 136239 bytes OK
+2026/11/03-17:51:44.282 1b30 Recovering log #57
+2026/11/03-17:51:44.283 1b30 Level-0 table #55: started
+2026/11/03-17:51:44.291 1b30 Level-0 table #55: 90546 bytes OK
+2026/11/03-17:51:44.291 1b30 Recovering log #60
+2026/11/03-17:51:44.293 1b30 Level-0 table #58: started
+2026/11/03-17:51:44.303 1b30 Level-0 table #58: 182457 bytes OK
+2026/11/03-17:51:44.304 1b30 Recovering log #62
+2026/11/03-17:51:44.305 1b30 Reusing old log C:\Users\kcatm\AppData\Local\Temp\flutter_tools.49971cd3\flutter_tools_chrome_device.2ecbc3f4\Default\Sync Data\LevelDB/000062.log 
+2026/11/03-17:51:44.311 1b30 Delete type=0 #4
+2026/11/03-17:51:44.311 1b30 Delete type=0 #7
+2026/11/03-17:51:44.311 1b30 Delete type=0 #10
+2026/11/03-17:51:44.311 1b30 Delete type=0 #13
+2026/11/03-17:51:44.311 1b30 Delete type=2 #16
+2026/11/03-17:51:44.311 1b30 Delete type=0 #17
+2026/11/03-17:51:44.311 1b30 Delete type=0 #19
+2026/11/03-17:51:44.311 1b30 Delete type=0 #22
+2026/11/03-17:51:44.311 1b30 Delete type=0 #25
+2026/11/03-17:51:44.311 1b30 Delete type=0 #28
+2026/11/03-17:51:44.311 1b30 Delete type=2 #30
+2026/11/03-17:51:44.311 1b30 Delete type=0 #32
+2026/11/03-17:51:44.311 1b30 Delete type=0 #35
+2026/11/03-17:51:44.311 1b30 Delete type=0 #38
+2026/11/03-17:51:44.311 1b30 Delete type=0 #41
+2026/11/03-17:51:44.311 1b30 Delete type=2 #43
+2026/11/03-17:51:44.311 1b30 Delete type=0 #45
+2026/11/03-17:51:44.311 1b30 Delete type=0 #48
+2026/11/03-17:51:44.311 1b30 Delete type=0 #51
+2026/11/03-17:51:44.311 1b30 Delete type=0 #54
+2026/11/03-17:51:44.311 1b30 Delete type=0 #57
+2026/11/03-17:51:44.311 1b30 Delete type=0 #60
+2026/11/03-17:51:44.311 1b30 Delete type=2 #61
+2026/11/03-17:51:44.311 1b30 Delete type=2 #62
+2026/11/03-17:51:44.311 1b30 Delete type=2 #63
+2026/11/03-17:51:44.322 3ce8 Compacting 19@0 + 0@1 files
+2026/11/03-17:51:44.373 3ce8 Generated table #63@0: 961 keys, 200903 bytes
+2026/11/03-17:51:44.373 3ce8 Compacted 19@0 + 0@1 files => 200903 bytes
+2026/11/03-17:51:44.374 3ce8 compacted to: files[ 0 1 0 0 0 0 0 ]
+2026/11/03-17:51:57.478 1eb0 Level-0 table #65: started
+2026/11/03-17:51:57.491 1eb0 Level-0 table #65: 217455 bytes OK
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #3
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #5
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #8
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #11
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #14
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #18
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #20
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #23
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #26
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #29
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #33
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #36
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #39
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #42
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #46
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #49
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #52
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #55
+2026/11/03-17:51:57.493 1eb0 Delete type=2 #58
+2026/11/03-17:51:57.493 1eb0 Delete type=0 #62

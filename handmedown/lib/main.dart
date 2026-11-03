@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-// import 'dart:math';
+import 'dart:math';
+
 const _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const _supabaseKey = String.fromEnvironment('SUPABASE_ANON_KEY');
 
@@ -208,13 +209,8 @@ Future<Map<String, dynamic>> _loadTextbook() async {
                   }
                 },
               ),
-<<<<<<< HEAD
-              _textField
-              (
-                controller: _communicationController,
-=======
               _textField(
->>>>>>> main
+                controller: _communicationController,
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
