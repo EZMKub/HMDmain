@@ -27,7 +27,7 @@ class HandMeDownApp extends StatelessWidget {
           : const Scaffold(
               body: Center(
                 child: Text(
-                  'Configure SUPABASE_URL and SUPABASE_ANON_KEY to start.',
+                  'Run the program using the steps in RunInstructions.md',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -71,17 +71,23 @@ Future<Map<String, dynamic>> _loadTextbook() async {
 
 
   // Reloads the catalog after a user refreshes or adds a textbook.
-  Future<void> _refresh() async {
+  Future<void> _refresh() {
+
     final request = _loadTextbooks();
-    setState(() => _textbooks = request);
-    try {
-      await request;
-    } catch (error) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not refresh textbooks: $error')),
-      );
-    }
+    setState(() { _textbooks = request;});
+
+    return request.then<void>(
+      
+      // A call back function, empty callback is (_), {} is 'do nothing'when successful
+      (_) {},
+      onError: (Object error) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not refresh textbooks: $error')),
+        );
+      },
+    );
   }
 
   // Opens a detail dialog and fetches the selected listing's contact method.
@@ -101,6 +107,10 @@ Future<Map<String, dynamic>> _loadTextbook() async {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Author: ${textbook['author']}'),
+            const SizedBox(height: 12),
+            Text('ISBN: ${textbook['isbn']}'),
+            const SizedBox(height: 12),
+            Text('Condition: ${textbook['condition']}'),
             const SizedBox(height: 12),
             FutureBuilder<Map<String, dynamic>?>(
               future: contactRequest,
@@ -176,37 +186,35 @@ Future<Map<String, dynamic>> _loadTextbook() async {
                 onSaved: (value) => textbook['isbn'] = value,
               ),
               // Update to be drop down
-              DropdownButtonFormField<String>
-              (
+              DropdownButtonFormField<String>(
                 initialValue: 'Fair',
                 decoration: const InputDecoration(labelText: 'Condition'),
-                items: <DropdownMenuItem<String>> 
-                [
+                items: <DropdownMenuItem<String>>[
                   // Initializes the value of the dropdown, assigned text as a child of the value
                   DropdownMenuItem(value: 'New', child: Text('New')),
                   DropdownMenuItem(value: 'Good', child: Text('Good')),
                   DropdownMenuItem(value: 'Fair', child: Text('Fair')),
                   DropdownMenuItem(value: 'Damaged', child: Text('Damaged')),
                 ],
-                onChanged: (value) 
-                {
-                  if (value != null) 
-                  {
+                onChanged: (value) {
+                  if (value != null) {
                     textbook['condition'] = value;
                   }
                 },
 
-                onSaved: (value) 
-                {
-                  if (value != null)
-                  {
+                onSaved: (value) {
+                  if (value != null) {
                     textbook['condition'] = value;
                   }
                 },
               ),
+<<<<<<< HEAD
               _textField
               (
                 controller: _communicationController,
+=======
+              _textField(
+>>>>>>> main
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -379,18 +387,15 @@ Future<void> _editTextbook() async {
       decoration: InputDecoration(labelText: label),
       // Set false with optional fields
       validator: isRequired
-          ? (value) => value == null || value.trim().isEmpty
-              ? 'Enter $label' 
-              : null
+          ? (value) =>
+                value == null || value.trim().isEmpty ? 'Enter $label' : null
           : null,
-      onSaved: (value) 
-      {
+      onSaved: (value) {
         final text = value?.trim() ?? '';
-        if (text.isNotEmpty) 
-        {
+        if (text.isNotEmpty) {
           onSaved(text);
         }
-      }
+      },
     );
   }
 
@@ -612,7 +617,7 @@ class CodeNumberProcessing{
 
   //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
   Future<void> numberGenerator(){
-    var random = random();
+    var random = Random();
     String codeString = "";
     int codeNumberOne = random.nextInt(10);
     int codeNumberTwo = random.nextInt(10);
@@ -621,17 +626,18 @@ class CodeNumberProcessing{
     codeString += codeNumberTwo.toString();
     codeString += codeNumberThree.toString();
     validCode = int.parse(codeString);
-  }
 
-  //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
-  Future<void> checkCode(){
+    //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
     for (int i = 0; i < codesList.length; i++){
       if (validCode = codesList[i]){
         numberGenerator();
         i = 0;
       }
     }
-    codesList.add(validCode);  //potentially set this back to 0
+    codesList.add(validCode);
+    //validCode = 0;
+
+    throw Exception("number not generated");
   }
 
 }
