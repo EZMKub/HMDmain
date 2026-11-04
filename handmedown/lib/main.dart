@@ -202,12 +202,34 @@ class _TextbookListPageState extends State<TextbookListPage> {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Textbook added')));
       _refresh();
+
+      _codePopup();
+      
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not add textbook: $error')));
     }
+  }
+
+  // Shows the add-listing form, validates it, then inserts the textbook.
+  void _codePopup() {
+    final code = Random().nextInt(1000).toString();
+
+    showDialog<void>(
+      context:context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Your Code'),
+        content: Text(code),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('close'),
+          ),
+        ]
+      )
+    );
   }
 
   // Required text input used in the add form.
@@ -390,7 +412,7 @@ class CodeNumberProcessing{
 
   //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
   Future<void> numberGenerator(){
-    var random = random();
+    var random = Random();
     String codeString = "";
     int codeNumberOne = random.nextInt(10);
     int codeNumberTwo = random.nextInt(10);
@@ -399,6 +421,8 @@ class CodeNumberProcessing{
     codeString += codeNumberTwo.toString();
     codeString += codeNumberThree.toString();
     validCode = int.parse(codeString);
+
+    throw Exception('number not generated');
   }
 
   //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
@@ -410,6 +434,8 @@ class CodeNumberProcessing{
       }
     }
     codesList.add(validCode);  //potentially set this back to 0
+
+    throw Exception('something went wrong');
   }
 
 }
