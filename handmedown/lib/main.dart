@@ -250,12 +250,34 @@ Future<Map<String, dynamic>> _loadTextbook() async {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Textbook added')));
       _refresh();
+
+      _codePopup();
+      
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not add textbook: $error')));
     }
+  }
+
+  // Shows the add-listing form, validates it, then inserts the textbook.
+  void _codePopup() {
+    final code = Random().nextInt(1000).toString();
+
+    showDialog<void>(
+      context:context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Your Code'),
+        content: Text(code),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('close'),
+          ),
+        ]
+      )
+    );
   }
 
 //when I am done, _editTextbook should grab all of the selected textbook's values from 
