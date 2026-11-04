@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
+
 const _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const _supabaseKey = String.fromEnvironment('SUPABASE_ANON_KEY');
 
@@ -27,7 +28,7 @@ class HandMeDownApp extends StatelessWidget {
           : const Scaffold(
               body: Center(
                 child: Text(
-                  'Configure SUPABASE_URL and SUPABASE_ANON_KEY to start.',
+                  'Run the program using the steps in RunInstructions.md',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -47,8 +48,6 @@ class TextbookListPage extends StatefulWidget {
 class _TextbookListPageState extends State<TextbookListPage> {
   // FutureBuilder uses this request to show loading, error, and catalog states.
   late Future<List<Map<String, dynamic>>> _textbooks;
-  final Set<String> _hiddenTextbookIds = {};
-
   @override
   void initState() {
     super.initState();
@@ -58,23 +57,38 @@ class _TextbookListPageState extends State<TextbookListPage> {
   Future<List<Map<String, dynamic>>> _loadTextbooks() async {
     final rows = await Supabase.instance.client
         .from('textbooks')
-        .select('id, title, author, created_at')
+        .select('id, title, author, isbn, condition, created_at')
         .order('created_at', ascending: false);
     return List<Map<String, dynamic>>.from(rows);
   }
 
+Future<Map<String, dynamic>> _loadTextbook() async {
+    final book = await Supabase.instance.client
+        .from('textbooks')
+        .select('id, title, author, isbn, condition, created_at')
+        .maybeSingle();
+    return Map<String, dynamic>.from(book ?? {});
+  }
+
+
   // Reloads the catalog after a user refreshes or adds a textbook.
-  Future<void> _refresh() async {
+  Future<void> _refresh() {
+
     final request = _loadTextbooks();
-    setState(() => _textbooks = request);
-    try {
-      await request;
-    } catch (error) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not refresh textbooks: $error')),
-      );
-    }
+    setState(() { _textbooks = request;});
+
+    return request.then<void>(
+      
+      // A call back function, empty callback is (_), {} is 'do nothing'when successful
+      (_) {},
+      onError: (Object error) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not refresh textbooks: $error')),
+        );
+      },
+    );
   }
 
   // Opens a detail dialog and fetches the selected listing's contact method.
@@ -94,6 +108,10 @@ class _TextbookListPageState extends State<TextbookListPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Author: ${textbook['author']}'),
+            const SizedBox(height: 12),
+            Text('ISBN: ${textbook['isbn']}'),
+            const SizedBox(height: 12),
+            Text('Condition: ${textbook['condition']}'),
             const SizedBox(height: 12),
             FutureBuilder<Map<String, dynamic>?>(
               future: contactRequest,
@@ -124,28 +142,14 @@ class _TextbookListPageState extends State<TextbookListPage> {
     );
   }
 
-  // Hide a listing locally for this session without deleting it from Supabase.
-  void _temporarilyRemove(Map<String, dynamic> textbook) {
-    final id = textbook['id'] as String;
-    setState(() => _hiddenTextbookIds.add(id));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Textbook hidden for this session'),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () => setState(() => _hiddenTextbookIds.remove(id)),
-        ),
-      ),
-    );
-  }
-
-  void _restoreHiddenTextbooks() {
-    setState(() => _hiddenTextbookIds.clear());
-  }
-
-  // Shows the add-listing form, validates it, then inserts the textbook.
+  // Shows the add-listing form, validates it, then inserts the textbook if valid.
   Future<void> _addTextbook() async {
     final formKey = GlobalKey<FormState>();
+    final _courseController = TextEditingController();
+    final _titleController = TextEditingController();
+    final _authorController = TextEditingController();
+    final _isbnController = TextEditingController();
+    final _communicationController = TextEditingController();
     final textbook = <String, String>{};
     final values = await showDialog<bool>(
       context: context,
@@ -156,17 +160,57 @@ class _TextbookListPageState extends State<TextbookListPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _requiredField(
+              // Update to be drop down
+              _textField(
+                controller : _courseController, 
+                label: 'Course name',
+                error: 'Enter a name',
+                onSaved: (value) => textbook['course'] = value,
+              ),
+              _textField(
+                controller: _titleController,
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
-              _requiredField(
+              _textField(
+                controller: _authorController, 
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
-              _requiredField(
+              _textField(
+                controller: _isbnController,
+                label: 'ISBN',
+                error: 'Enter ISBN',
+                isRequired: false,
+                onSaved: (value) => textbook['isbn'] = value,
+              ),
+              // Update to be drop down
+              DropdownButtonFormField<String>(
+                initialValue: 'Fair',
+                decoration: const InputDecoration(labelText: 'Condition'),
+                items: <DropdownMenuItem<String>>[
+                  // Initializes the value of the dropdown, assigned text as a child of the value
+                  DropdownMenuItem(value: 'New', child: Text('New')),
+                  DropdownMenuItem(value: 'Good', child: Text('Good')),
+                  DropdownMenuItem(value: 'Fair', child: Text('Fair')),
+                  DropdownMenuItem(value: 'Damaged', child: Text('Damaged')),
+                ],
+                onChanged: (value) {
+                  if (value != null) {
+                    textbook['condition'] = value;
+                  }
+                },
+
+                onSaved: (value) {
+                  if (value != null) {
+                    textbook['condition'] = value;
+                  }
+                },
+              ),
+              _textField(
+                controller: _communicationController,
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -196,7 +240,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
       await Supabase.instance.client.from('textbooks').insert({
         ...textbook,
         // Keep compatibility with the original schema's required condition.
-        'condition': 'Good',
+        //'condition': 'Fair',
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context)
@@ -232,23 +276,217 @@ class _TextbookListPageState extends State<TextbookListPage> {
     );
   }
 
-  // Required text input used in the add form.
-  Widget _requiredField({
+  // Shows the add-listing form, validates it, then inserts the textbook.
+  void _codePopup() {
+    final code = Random().nextInt(1000).toString();
+
+    showDialog<void>(
+      context:context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Your Code'),
+        content: Text(code),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('close'),
+          ),
+        ]
+      )
+    );
+  }
+
+//when I am done, _editTextbook should grab all of the selected textbook's values from 
+//the database, then populate the form fields with those values for editing. 
+//then the form fields should be updated with any changes. 
+Future<void> _editTextbook() async {
+    final formKey = GlobalKey<FormState>();
+    final textbook = <String, String>{};
+    final oldTextbook = await _loadTextbook();
+    final values = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Edit textbook'),
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Update to be drop down
+              _textField(
+                controller : TextEditingController(text: oldTextbook['course']), 
+                label: 'Course name',
+                error: 'Enter a name',
+                onSaved: (value) => textbook['course'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: oldTextbook['title']),
+                label: 'Textbook title',
+                error: 'Enter a title',
+                onSaved: (value) => textbook['title'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: oldTextbook['author']), 
+                label: 'Author',
+                error: 'Enter an author',
+                onSaved: (value) => textbook['author'] = value,
+              ),
+              _textField(
+                controller: TextEditingController(text: oldTextbook['isbn']),
+                label: 'ISBN',
+                error: 'Enter ISBN',
+                isRequired: false,
+                onSaved: (value) => textbook['isbn'] = value,
+              ),
+              // Update to be drop down
+              DropdownButtonFormField<String>
+              (
+                initialValue: oldTextbook['condition'],
+                decoration: const InputDecoration(labelText: 'Condition'),
+                items: <DropdownMenuItem<String>> 
+                [
+                  // Initializes the value of the dropdown, assigned text as a child of the value
+                  DropdownMenuItem(value: 'New', child: Text('New')),
+                  DropdownMenuItem(value: 'Good', child: Text('Good')),
+                  DropdownMenuItem(value: 'Fair', child: Text('Fair')),
+                  DropdownMenuItem(value: 'Damaged', child: Text('Damaged')),
+                ],
+                onChanged: (value) 
+                {
+                  if (value != null) 
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+
+                onSaved: (value) 
+                {
+                  if (value != null)
+                  {
+                    textbook['condition'] = value;
+                  }
+                },
+              ),
+              _textField
+              (
+                controller: TextEditingController(text: oldTextbook['communication_method']),
+                label: 'Preferred communication method',
+                error: 'Enter a contact method',
+                onSaved: (value) => textbook['communication_method'] = value,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (!formKey.currentState!.validate()) return;
+              formKey.currentState!.save();
+              Navigator.pop(dialogContext, true);
+            },
+            child: const Text('Edit'),
+          ),
+        ],
+      ),
+    );
+    if (values != true || !mounted) return;
+
+    try {
+      await Supabase.instance.client.from('textbooks').update({
+        ...textbook,
+        // Keep compatibility with the original schema's required condition.
+        //'condition': 'Fair',
+      });
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Textbook edited')));
+      _refresh();
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not edit textbook: $error')));
+    }
+  }
+
+  // Text input used in the add form, change whether or not it's optional by using isRequired.
+  Widget _textField({
     required String label,
     required String error,
     required ValueChanged<String> onSaved,
+    required TextEditingController controller,
+    bool isRequired = true,
   }) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
-      validator: (value) =>
-          value == null || value.trim().isEmpty ? error : null,
-      onSaved: (value) => onSaved(value!.trim()),
+      // Set false with optional fields
+      validator: isRequired
+          ? (value) =>
+                value == null || value.trim().isEmpty ? 'Enter $label' : null
+          : null,
+      onSaved: (value) {
+        final text = value?.trim() ?? '';
+        if (text.isNotEmpty) {
+          onSaved(text);
+        }
+      },
     );
+  }
+
+  // Ask for confirmation, then permanently delete the listing from Supabase.
+  Future<void> _deleteTextbook(Map<String, dynamic> textbook) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete textbook?'),
+        content: Text('“${textbook['title']}” will be permanently deleted.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    try {
+      final deleted = await Supabase.instance.client
+          .from('textbooks')
+          .delete()
+          .eq('id', textbook['id'])
+          .select('id');
+
+      if (deleted.isEmpty) {
+        throw StateError(
+          'No textbook was deleted. Check the Supabase delete permission.',
+        );
+      }
+      if (!mounted) return;
+
+      await _refresh();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Textbook deleted')));
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Couldn't delete textbook: $error")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold provides the app's bar, the catalog body, and the buton for adding textbooks.
+    // Scaffold provides the app's bar, the catalog body, and the button for adding textbooks.
     return Scaffold(
       appBar: AppBar(
         title: const Text('Textbooks'),
@@ -273,21 +511,9 @@ class _TextbookListPageState extends State<TextbookListPage> {
               ),
             );
           }
-          final textbooks = snapshot.data!
-              .where(
-                (textbook) =>
-                    !_hiddenTextbookIds.contains(textbook['id'] as String),
-              )
-              .toList();
+          final textbooks = snapshot.data!;
           if (textbooks.isEmpty) {
-            return Center(
-              child: _hiddenTextbookIds.isEmpty
-                  ? const Text('No textbooks listed yet.')
-                  : TextButton(
-                      onPressed: _restoreHiddenTextbooks,
-                      child: const Text('Show hidden textbooks'),
-                    ),
-            );
+            return const Center(child: Text('No textbooks listed yet.'));
           }
           return Center(
             child: ConstrainedBox(
@@ -331,7 +557,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${textbook['author']} · '
+                                    '${textbook['author']} · ${textbook['condition']} · '
                                     '${listedAt == null ? 'Textbook listing' : listedAt.toLocal().toString().split(' ').first}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -344,17 +570,33 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(right: 8),
-                                        child: Icon(
-                                          Icons.bookmark_border_rounded,
-                                          size: 16,
+          
+                                        child: IconButton(
+                                          tooltip: 'edit listing',
+                                      
+                                          visualDensity: VisualDensity.compact,
+                                          padding: EdgeInsets.zero,
+                                          constraints: const BoxConstraints(
+                                          minWidth: 32,
+                                          minHeight: 32,
+                                        ),
+                                        // need to change onPressed to request random key,
+                                        // then allow user to edit if they input the correct key. 
+                                
+                                        onPressed: () =>
+                                        // could create new function, or simply repurpose add and remove for the most vile product
+                                        // need to consider how to fill a form with previously entered data 
+                                            _editTextbook(),
+                                        icon: const Icon(Icons.edit, size: 16),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 8),
-                                        child: Icon(Icons.share, size: 16),
-                                      ),
+                                      //Padding(
+                                      // padding: EdgeInsets.only(right: 8),
+                                       //child: Icon(Icons.share, size: 16),
+                                     // ),
+                                     
                                       IconButton(
-                                        tooltip: 'Temporarily remove',
+                                        tooltip: 'Delete textbook',
                                         visualDensity: VisualDensity.compact,
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(
@@ -362,7 +604,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                           minHeight: 32,
                                         ),
                                         onPressed: () =>
-                                            _temporarilyRemove(textbook),
+                                            _deleteTextbook(textbook),
                                         icon: const Icon(Icons.close, size: 16),
                                       ),
                                     ],
@@ -413,6 +655,7 @@ class CodeNumberProcessing{
   //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
   Future<void> numberGenerator(){
     var random = Random();
+    var random = Random();
     String codeString = "";
     int codeNumberOne = random.nextInt(10);
     int codeNumberTwo = random.nextInt(10);
@@ -422,20 +665,17 @@ class CodeNumberProcessing{
     codeString += codeNumberThree.toString();
     validCode = int.parse(codeString);
 
-    throw Exception('number not generated');
-  }
-
-  //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
-  Future<void> checkCode(){
+    //checks if the generated code is a duplicate, rolls a new one if it is, adds to the list
     for (int i = 0; i < codesList.length; i++){
       if (validCode = codesList[i]){
         numberGenerator();
         i = 0;
       }
     }
-    codesList.add(validCode);  //potentially set this back to 0
+    codesList.add(validCode);
+    //validCode = 0;
 
-    throw Exception('something went wrong');
+    throw Exception("number not generated");
   }
 
 }
