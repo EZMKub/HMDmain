@@ -276,25 +276,6 @@ Future<Map<String, dynamic>> _loadTextbook() async {
     );
   }
 
-  // Shows the add-listing form, validates it, then inserts the textbook.
-  void _codePopup() {
-    final code = Random().nextInt(1000).toString();
-
-    showDialog<void>(
-      context:context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Your Code'),
-        content: Text(code),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('close'),
-          ),
-        ]
-      )
-    );
-  }
-
 //when I am done, _editTextbook should grab all of the selected textbook's values from 
 //the database, then populate the form fields with those values for editing. 
 //then the form fields should be updated with any changes. 
@@ -654,7 +635,6 @@ class CodeNumberProcessing{
 
   //generates a random 3 digit code to validate editing or removing posts (class name isn't finalized)
   Future<void> numberGenerator(){
-    var random = Random();
     var random = Random();
     String codeString = "";
     int codeNumberOne = random.nextInt(10);
