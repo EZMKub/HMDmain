@@ -42,7 +42,7 @@
     },
     {
       "name": "supabase_flutter",
-      "version": "2.18.2",
+      "version": "2.18.3",
       "dependencies": [
         "app_links",
         "async",
@@ -206,7 +206,7 @@
     },
     {
       "name": "supabase",
-      "version": "2.16.4",
+      "version": "2.16.5",
       "dependencies": [
         "functions_client",
         "gotrue",
@@ -367,18 +367,21 @@
     },
     {
       "name": "shared_preferences_foundation",
-      "version": "2.5.7",
+      "version": "2.6.0",
       "dependencies": [
+        "ffi",
         "flutter",
         "meta",
+        "objective_c",
         "shared_preferences_platform_interface"
       ]
     },
     {
       "name": "shared_preferences_android",
-      "version": "2.4.28",
+      "version": "2.5.3",
       "dependencies": [
         "flutter",
+        "jni",
         "meta",
         "shared_preferences_platform_interface"
       ]
@@ -473,7 +476,7 @@
     },
     {
       "name": "realtime_client",
-      "version": "2.13.1",
+      "version": "2.13.2",
       "dependencies": [
         "collection",
         "http",
@@ -570,7 +573,7 @@
     },
     {
       "name": "vm_service",
-      "version": "15.3.0",
+      "version": "15.4.0",
       "dependencies": []
     },
     {
@@ -619,6 +622,38 @@
       ]
     },
     {
+      "name": "objective_c",
+      "version": "9.6.2",
+      "dependencies": [
+        "code_assets",
+        "collection",
+        "ffi",
+        "hooks",
+        "logging",
+        "meta",
+        "pub_semver"
+      ]
+    },
+    {
+      "name": "ffi",
+      "version": "2.2.0",
+      "dependencies": []
+    },
+    {
+      "name": "jni",
+      "version": "1.1.0",
+      "dependencies": [
+        "args",
+        "collection",
+        "ffi",
+        "jni_util",
+        "meta",
+        "package_config",
+        "path",
+        "plugin_platform_interface"
+      ]
+    },
+    {
       "name": "typed_data",
       "version": "1.4.0",
       "dependencies": [
@@ -651,11 +686,6 @@
       ]
     },
     {
-      "name": "ffi",
-      "version": "2.2.0",
-      "dependencies": []
-    },
-    {
       "name": "platform",
       "version": "3.2.0",
       "dependencies": [
@@ -669,6 +699,53 @@
         "meta",
         "path"
       ]
+    },
+    {
+      "name": "pub_semver",
+      "version": "2.2.1",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "hooks",
+      "version": "2.2.0",
+      "dependencies": [
+        "collection",
+        "crypto",
+        "logging",
+        "pub_semver",
+        "record_use",
+        "yaml"
+      ]
+    },
+    {
+      "name": "code_assets",
+      "version": "2.1.0",
+      "dependencies": [
+        "collection",
+        "hooks",
+        "logging"
+      ]
+    },
+    {
+      "name": "package_config",
+      "version": "3.0.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "jni_util",
+      "version": "1.0.0",
+      "dependencies": [
+        "path"
+      ]
+    },
+    {
+      "name": "args",
+      "version": "2.7.0",
+      "dependencies": []
     },
     {
       "name": "web_socket",
@@ -690,6 +767,24 @@
       "version": "3.1.2",
       "dependencies": [
         "typed_data"
+      ]
+    },
+    {
+      "name": "yaml",
+      "version": "3.1.4",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner"
+      ]
+    },
+    {
+      "name": "record_use",
+      "version": "1.1.1",
+      "dependencies": [
+        "collection",
+        "meta",
+        "pub_semver"
       ]
     }
   ],

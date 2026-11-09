@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-// import 'dart:math';
+import 'dart:math';
 const _supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const _supabaseKey = String.fromEnvironment('SUPABASE_ANON_KEY');
 
@@ -144,11 +144,11 @@ Future<Map<String, dynamic>> _loadTextbook() async {
   // Shows the add-listing form, validates it, then inserts the textbook if valid.
   Future<void> _addTextbook() async {
     final formKey = GlobalKey<FormState>();
-    final _courseController = TextEditingController();
-    final _titleController = TextEditingController();
-    final _authorController = TextEditingController();
-    final _isbnController = TextEditingController();
-    final _communicationController = TextEditingController();
+    final courseController = TextEditingController();
+    final titleController = TextEditingController();
+    final authorController = TextEditingController();
+    final isbnController = TextEditingController();
+    final communicationController = TextEditingController();
     final textbook = <String, String>{};
     final values = await showDialog<bool>(
       context: context,
@@ -161,25 +161,25 @@ Future<Map<String, dynamic>> _loadTextbook() async {
             children: [
               // Update to be drop down
               _textField(
-                controller : _courseController, 
+                controller : courseController, 
                 label: 'Course name',
                 error: 'Enter a name',
                 onSaved: (value) => textbook['course'] = value,
               ),
               _textField(
-                controller: _titleController,
+                controller: titleController,
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
               _textField(
-                controller: _authorController, 
+                controller: authorController, 
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
               _textField(
-                controller: _isbnController,
+                controller: isbnController,
                 label: 'ISBN',
                 error: 'Enter ISBN',
                 isRequired: false,
@@ -208,13 +208,8 @@ Future<Map<String, dynamic>> _loadTextbook() async {
                   }
                 },
               ),
-<<<<<<< HEAD
-              _textField
-              (
-                controller: _communicationController,
-=======
               _textField(
->>>>>>> main
+                controller: communicationController,
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
