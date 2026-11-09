@@ -22,6 +22,9 @@ class HandMeDownApp extends StatelessWidget {
     // Choose between the textbooks setup guidance when the app starts.
     return MaterialApp(
       title: 'Hand Me Down',
+      theme: ThemeData.dark(
+
+      ),
       home: configured
           ? const TextbookListPage()
           : const Scaffold(
