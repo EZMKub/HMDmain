@@ -28,6 +28,7 @@ class HandMeDownApp extends StatelessWidget {
       home: configured
           ? const TextbookListPage()
           : const Scaffold(
+              backgroundColor: Colors.black,
               body: Center(
                 child: Text(
                   'Run the program using the steps in RunInstructions.md',
@@ -472,6 +473,7 @@ Future<void> _editTextbook() async {
     // Scaffold provides the app's bar, the catalog body, and the button for adding textbooks.
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: const Text('Textbooks'),
         actions: [
           IconButton(onPressed: _refresh, icon: const Icon(Icons.refresh)),
