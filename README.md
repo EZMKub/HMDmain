@@ -1,6 +1,19 @@
 # HMDmain
-COMP-489/490 forty9 amazing madlib project the only way I exchange Syllables for the sake of good grades, status: SUCCESS.  
+# Hand Me Down
 
+A Flutter app for browsing and listing textbooks in a shared Supabase catalog.
+
+
+To run, put:
+
+   flutter pub get
+   flutter run --dart-define=SUPABASE_URL=https://jsvxowsdvgoywkwxrfxg.supabase.co --dart-define=SUPABASE_ANON_KEY=sb_publishable_WoZZZdXBymY4LrxnKy6M2w_DM6z6cZc
+
+in the terminal
+
+
+
+# For the Developers:
 -commit message template-
 Where are the changes being committed:
 What changes have you made:
