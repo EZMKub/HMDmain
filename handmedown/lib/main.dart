@@ -58,19 +58,12 @@ class _TextbookListPageState extends State<TextbookListPage> {
   Future<List<Map<String, dynamic>>> _loadTextbooks() async {
     final rows = await Supabase.instance.client
         .from('textbooks')
-        .select('id, title, author, isbn, condition, created_at')
+        .select(
+          'id, title, author, isbn, course, condition, communication_method, created_at',
+        )
         .order('created_at', ascending: false);
     return List<Map<String, dynamic>>.from(rows);
   }
-
-Future<Map<String, dynamic>> _loadTextbook() async {
-    final book = await Supabase.instance.client
-        .from('textbooks')
-        .select('id, title, author, isbn, condition, created_at')
-        .maybeSingle();
-    return Map<String, dynamic>.from(book ?? {});
-  }
-
 
   // Reloads the catalog after a user refreshes or adds a textbook.
   Future<void> _refresh() {
@@ -108,6 +101,8 @@ Future<Map<String, dynamic>> _loadTextbook() async {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Course: ${textbook['course'] ?? 'Not provided'}'),
+            const SizedBox(height: 12),
             Text('Author: ${textbook['author']}'),
             const SizedBox(height: 12),
             Text('ISBN: ${textbook['isbn']}'),
@@ -238,8 +233,10 @@ Future<Map<String, dynamic>> _loadTextbook() async {
     if (values != true || !mounted) return;
 
     try {
+      final editCode = Random().nextInt(1000).toString();
       await Supabase.instance.client.from('textbooks').insert({
         ...textbook,
+        'edit_code': editCode,
         // Keep compatibility with the original schema's required condition.
         //'condition': 'Fair',
       });
@@ -248,8 +245,8 @@ Future<Map<String, dynamic>> _loadTextbook() async {
           .showSnackBar(const SnackBar(content: Text('Textbook added')));
       _refresh();
 
-      _codePopup();
-      
+      await _codePopup(editCode);
+
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -259,11 +256,9 @@ Future<Map<String, dynamic>> _loadTextbook() async {
   }
 
   // Shows the add-listing form, validates it, then inserts the textbook.
-  void _codePopup() {
-    final code = Random().nextInt(1000).toString();
-
-    showDialog<void>(
-      context:context,
+  Future<void> _codePopup(String code) {
+    return showDialog<void>(
+      context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Your Code'),
         content: Text(code),
@@ -272,19 +267,70 @@ Future<Map<String, dynamic>> _loadTextbook() async {
             onPressed: () => Navigator.pop(dialogContext),
             child: const Text('close'),
           ),
-        ]
-      )
+        ],
+      ),
     );
   }
 
 //when I am done, _editTextbook should grab all of the selected textbook's values from 
 //the database, then populate the form fields with those values for editing. 
 //then the form fields should be updated with any changes. 
-Future<void> _editTextbook() async {
+  Future<String?> _askForCode() async {
+    final controller = TextEditingController();
+    try {
+      return await showDialog<String>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('Enter your edit code'),
+          content: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            maxLength: 3,
+            decoration: const InputDecoration(labelText: 'Edit Code'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () =>
+                  Navigator.pop(dialogContext, controller.text.trim()),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      controller.dispose();
+    }
+  }
+
+  Future<void> _editTextbook(Map<String, dynamic> selectedTextbook) async {
+    final enteredCode = await _askForCode();
+    if (enteredCode == null || !mounted) return;
+
+    final textbookId = selectedTextbook['id'].toString();
     final formKey = GlobalKey<FormState>();
     final textbook = <String, String>{};
-    final oldTextbook = await _loadTextbook();
-    final values = await showDialog<bool>(
+    final oldTextbook = selectedTextbook;
+    final courseController = TextEditingController(
+      text: oldTextbook['course']?.toString() ?? '',
+    );
+    final titleController = TextEditingController(
+      text: oldTextbook['title']?.toString() ?? '',
+    );
+    final authorController = TextEditingController(
+      text: oldTextbook['author']?.toString() ?? '',
+    );
+    final isbnController = TextEditingController(
+      text: oldTextbook['isbn']?.toString() ?? '',
+    );
+    final communicationController = TextEditingController(
+      text: oldTextbook['communication_method']?.toString() ?? '',
+    );
+    try {
+      final values = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Edit textbook'),
@@ -295,25 +341,25 @@ Future<void> _editTextbook() async {
             children: [
               // Update to be drop down
               _textField(
-                controller : TextEditingController(text: oldTextbook['course']), 
+                controller: courseController,
                 label: 'Course name',
                 error: 'Enter a name',
                 onSaved: (value) => textbook['course'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: oldTextbook['title']),
+                controller: titleController,
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: oldTextbook['author']), 
+                controller: authorController,
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
               _textField(
-                controller: TextEditingController(text: oldTextbook['isbn']),
+                controller: isbnController,
                 label: 'ISBN',
                 error: 'Enter ISBN',
                 isRequired: false,
@@ -350,7 +396,7 @@ Future<void> _editTextbook() async {
               ),
               _textField
               (
-                controller: TextEditingController(text: oldTextbook['communication_method']),
+                controller: communicationController,
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -374,23 +420,50 @@ Future<void> _editTextbook() async {
         ],
       ),
     );
-    if (values != true || !mounted) return;
+      if (values != true || !mounted) return;
 
-    try {
-      await Supabase.instance.client.from('textbooks').update({
-        ...textbook,
-        // Keep compatibility with the original schema's required condition.
-        //'condition': 'Fair',
-      });
+      final result = await Supabase.instance.client.rpc(
+        'edit_textbook',
+        params: {
+          'p_id': textbookId,
+          'p_code': enteredCode,
+          'p_title': textbook['title'] ?? oldTextbook['title'],
+          'p_author': textbook['author'] ?? oldTextbook['author'],
+          'p_isbn': textbook['isbn'] ?? oldTextbook['isbn'],
+          'p_course': textbook['course'] ?? oldTextbook['course'],
+          'p_condition': textbook['condition'] ?? oldTextbook['condition'],
+          'p_communication_method':
+              textbook['communication_method'] ??
+              oldTextbook['communication_method'],
+        },
+      );
+
+      if (result != true) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Incorrect code or textbook listing not found'),
+          ),
+        );
+        return;
+      }
+
+      if (!mounted) return;
+      await _refresh();
       if (!mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Textbook edited')));
-      _refresh();
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not edit textbook: $error')));
+    } finally {
+      courseController.dispose();
+      titleController.dispose();
+      authorController.dispose();
+      isbnController.dispose();
+      communicationController.dispose();
     }
   }
 
@@ -403,6 +476,7 @@ Future<void> _editTextbook() async {
     bool isRequired = true,
   }) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(labelText: label),
       // Set false with optional fields
       validator: isRequired
@@ -420,6 +494,9 @@ Future<void> _editTextbook() async {
 
   // Ask for confirmation, then permanently delete the listing from Supabase.
   Future<void> _deleteTextbook(Map<String, dynamic> textbook) async {
+    final enteredCode = await _askForCode();
+    if (enteredCode == null || !mounted) return;
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -441,17 +518,24 @@ Future<void> _editTextbook() async {
     if (confirmed != true || !mounted) return;
 
     try {
-      final deleted = await Supabase.instance.client
-          .from('textbooks')
-          .delete()
-          .eq('id', textbook['id'])
-          .select('id');
+      final result = await Supabase.instance.client.rpc(
+        'delete_textbook',
+        params: {
+          'p_id': textbook['id'].toString(),
+          'p_code': enteredCode,
+        },
+      );
 
-      if (deleted.isEmpty) {
-        throw StateError(
-          'No textbook was deleted. Check the Supabase delete permission.',
+      if (result != true) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Incorrect code or textbook listing not found'),
+          ),
         );
+        return;
       }
+
       if (!mounted) return;
 
       await _refresh();
@@ -509,7 +593,7 @@ Future<void> _editTextbook() async {
                     textbook['created_at'] as String? ?? '',
                   );
                   return Container(
-                    height: 136,
+                    height: 160,
                     margin: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
@@ -536,6 +620,15 @@ Future<void> _editTextbook() async {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Course: ${textbook['course'] ?? 'Not provided'}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall,
+                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 8),
@@ -569,7 +662,7 @@ Future<void> _editTextbook() async {
                                         onPressed: () =>
                                         // could create new function, or simply repurpose add and remove for the most vile product
                                         // need to consider how to fill a form with previously entered data 
-                                            _editTextbook(),
+                                            _editTextbook(textbook),
                                         icon: const Icon(Icons.edit, size: 16),
                                         ),
                                       ),
