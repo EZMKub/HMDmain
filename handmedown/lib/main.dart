@@ -612,7 +612,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     textbook['title'] as String,
@@ -640,9 +640,11 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                         .bodySmall,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
                                   ),
                                   const SizedBox(height: 8),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(right: 8),
@@ -650,11 +652,17 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                         child: IconButton(
                                           tooltip: 'edit listing',
                                       
-                                          visualDensity: VisualDensity.compact,
+                                          visualDensity: VisualDensity.standard,
+                                          style: IconButton.styleFrom(
+                                            backgroundColor: Colors.blue.withValues(alpha: 0.35),
+                                            foregroundColor: Colors.blue,
+                                            minimumSize: const Size(48,48),
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                          ),
                                           padding: EdgeInsets.zero,
                                           constraints: const BoxConstraints(
-                                          minWidth: 32,
-                                          minHeight: 32,
+                                          minWidth: 48,
+                                          minHeight: 48,
                                         ),
                                         // need to change onPressed to request random key,
                                         // then allow user to edit if they input the correct key. 
@@ -663,7 +671,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                         // could create new function, or simply repurpose add and remove for the most vile product
                                         // need to consider how to fill a form with previously entered data 
                                             _editTextbook(textbook),
-                                        icon: const Icon(Icons.edit, size: 16),
+                                        icon: const Icon(Icons.edit, size: 20),
                                         ),
                                       ),
                                       //Padding(
@@ -673,15 +681,21 @@ class _TextbookListPageState extends State<TextbookListPage> {
                                      
                                       IconButton(
                                         tooltip: 'Delete textbook',
-                                        visualDensity: VisualDensity.compact,
+                                        visualDensity: VisualDensity.standard,
+                                        style: IconButton.styleFrom(
+                                          backgroundColor: Colors.red.withValues(alpha: 0.35),
+                                          foregroundColor: Colors.red,
+                                          minimumSize: const Size(48,48),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                        ),
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(
-                                          minWidth: 32,
-                                          minHeight: 32,
+                                          minWidth: 48,
+                                          minHeight: 48,
                                         ),
                                         onPressed: () =>
                                             _deleteTextbook(textbook),
-                                        icon: const Icon(Icons.close, size: 16),
+                                        icon: const Icon(Icons.close, size: 20, color:Colors.red),
                                       ),
                                     ],
                                   ),

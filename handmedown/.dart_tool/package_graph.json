@@ -105,7 +105,7 @@
     },
     {
       "name": "vector_math",
-      "version": "2.4.3",
+      "version": "2.4.4",
       "dependencies": []
     },
     {
@@ -161,7 +161,7 @@
     },
     {
       "name": "web",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "dependencies": []
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "name": "passkeys_platform_interface",
-      "version": "2.10.0",
+      "version": "2.11.0",
       "dependencies": [
         "flutter",
         "json_annotation",
@@ -367,7 +367,7 @@
     },
     {
       "name": "shared_preferences_foundation",
-      "version": "2.6.0",
+      "version": "2.6.2",
       "dependencies": [
         "ffi",
         "flutter",
@@ -378,7 +378,7 @@
     },
     {
       "name": "shared_preferences_android",
-      "version": "2.5.3",
+      "version": "2.5.5",
       "dependencies": [
         "flutter",
         "jni",
@@ -451,10 +451,8 @@
     },
     {
       "name": "crypto",
-      "version": "3.0.7",
-      "dependencies": [
-        "typed_data"
-      ]
+      "version": "3.0.8",
+      "dependencies": []
     },
     {
       "name": "yet_another_json_isolate",
@@ -565,7 +563,7 @@
     },
     {
       "name": "app_links_linux",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "dependencies": [
         "app_links_platform_interface",
         "flutter"
@@ -623,7 +621,7 @@
     },
     {
       "name": "objective_c",
-      "version": "9.6.2",
+      "version": "9.6.4",
       "dependencies": [
         "code_assets",
         "collection",
@@ -641,7 +639,7 @@
     },
     {
       "name": "jni",
-      "version": "1.1.0",
+      "version": "1.1.2",
       "dependencies": [
         "args",
         "collection",
@@ -651,13 +649,6 @@
         "package_config",
         "path",
         "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "typed_data",
-      "version": "1.4.0",
-      "dependencies": [
-        "collection"
       ]
     },
     {
@@ -683,6 +674,13 @@
         "clock",
         "convert",
         "pointycastle"
+      ]
+    },
+    {
+      "name": "typed_data",
+      "version": "1.4.0",
+      "dependencies": [
+        "collection"
       ]
     },
     {
@@ -721,7 +719,7 @@
     },
     {
       "name": "code_assets",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "dependencies": [
         "collection",
         "hooks",
