@@ -276,34 +276,29 @@ class _TextbookListPageState extends State<TextbookListPage> {
 //the database, then populate the form fields with those values for editing. 
 //then the form fields should be updated with any changes. 
   Future<String?> _askForCode() async {
-    final controller = TextEditingController();
-    try {
-      return await showDialog<String>(
-        context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: const Text('Enter your edit code'),
-          content: TextField(
-            controller: controller,
-            keyboardType: TextInputType.number,
-            maxLength: 3,
-            decoration: const InputDecoration(labelText: 'Edit Code'),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () =>
-                  Navigator.pop(dialogContext, controller.text.trim()),
-              child: const Text('Continue'),
-            ),
-          ],
+    var enteredCode = '';
+    return showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Enter your edit code'),
+        content: TextField(
+          keyboardType: TextInputType.number,
+          maxLength: 3,
+          decoration: const InputDecoration(labelText: 'Edit Code'),
+          onChanged: (value) => enteredCode = value.trim(),
         ),
-      );
-    } finally {
-      controller.dispose();
-    }
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, enteredCode),
+            child: const Text('Continue'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _editTextbook(Map<String, dynamic> selectedTextbook) async {
@@ -314,21 +309,6 @@ class _TextbookListPageState extends State<TextbookListPage> {
     final formKey = GlobalKey<FormState>();
     final textbook = <String, String>{};
     final oldTextbook = selectedTextbook;
-    final courseController = TextEditingController(
-      text: oldTextbook['course']?.toString() ?? '',
-    );
-    final titleController = TextEditingController(
-      text: oldTextbook['title']?.toString() ?? '',
-    );
-    final authorController = TextEditingController(
-      text: oldTextbook['author']?.toString() ?? '',
-    );
-    final isbnController = TextEditingController(
-      text: oldTextbook['isbn']?.toString() ?? '',
-    );
-    final communicationController = TextEditingController(
-      text: oldTextbook['communication_method']?.toString() ?? '',
-    );
     try {
       final values = await showDialog<bool>(
       context: context,
@@ -341,25 +321,25 @@ class _TextbookListPageState extends State<TextbookListPage> {
             children: [
               // Update to be drop down
               _textField(
-                controller: courseController,
+                initialValue: oldTextbook['course']?.toString() ?? '',
                 label: 'Course name',
                 error: 'Enter a name',
                 onSaved: (value) => textbook['course'] = value,
               ),
               _textField(
-                controller: titleController,
+                initialValue: oldTextbook['title']?.toString() ?? '',
                 label: 'Textbook title',
                 error: 'Enter a title',
                 onSaved: (value) => textbook['title'] = value,
               ),
               _textField(
-                controller: authorController,
+                initialValue: oldTextbook['author']?.toString() ?? '',
                 label: 'Author',
                 error: 'Enter an author',
                 onSaved: (value) => textbook['author'] = value,
               ),
               _textField(
-                controller: isbnController,
+                initialValue: oldTextbook['isbn']?.toString() ?? '',
                 label: 'ISBN',
                 error: 'Enter ISBN',
                 isRequired: false,
@@ -396,7 +376,8 @@ class _TextbookListPageState extends State<TextbookListPage> {
               ),
               _textField
               (
-                controller: communicationController,
+                initialValue:
+                    oldTextbook['communication_method']?.toString() ?? '',
                 label: 'Preferred communication method',
                 error: 'Enter a contact method',
                 onSaved: (value) => textbook['communication_method'] = value,
@@ -458,12 +439,6 @@ class _TextbookListPageState extends State<TextbookListPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Could not edit textbook: $error')));
-    } finally {
-      courseController.dispose();
-      titleController.dispose();
-      authorController.dispose();
-      isbnController.dispose();
-      communicationController.dispose();
     }
   }
 
@@ -472,11 +447,13 @@ class _TextbookListPageState extends State<TextbookListPage> {
     required String label,
     required String error,
     required ValueChanged<String> onSaved,
-    required TextEditingController controller,
+    TextEditingController? controller,
+    String? initialValue,
     bool isRequired = true,
   }) {
     return TextFormField(
       controller: controller,
+      initialValue: controller == null ? initialValue : null,
       decoration: InputDecoration(labelText: label),
       // Set false with optional fields
       validator: isRequired
