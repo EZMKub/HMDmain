@@ -556,7 +556,7 @@ class _TextbookListPageState extends State<TextbookListPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text('Textbooks'),
+        title: const Text('Hand Me Down: Find a new home for old textbooks.'),
         actions: [
           IconButton(onPressed: _refresh, icon: const Icon(Icons.refresh)),
         ],
